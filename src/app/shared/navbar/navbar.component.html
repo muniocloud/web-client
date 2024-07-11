@@ -1,9 +1,9 @@
 <mat-toolbar class="app-navbar" aria-label="Munio">
-  <a mat-button>
+  <a mat-button routerLink="/">
     <app-logo matButtonIcon/> munio
   </a>
   <div class="app-navbar-actions">
-    <button mat-button>Login</button>
-    <button mat-flat-button>Sign up</button>
+    <app-login-button />
+    <app-signup-button />
   </div>
 </mat-toolbar>

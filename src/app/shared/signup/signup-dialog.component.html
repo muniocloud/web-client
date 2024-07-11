@@ -1,0 +1,33 @@
+<div mat-dialog-title class="dialog-title">
+  <app-logo class="dialog-app-logo"/>
+  <h2 class="mat-title-large">Create your account</h2>
+</div>
+<mat-dialog-content>
+  <form class="dialog-signup-form" [formGroup]="signUpForm">
+    <mat-form-field appearance="outline">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="gabriel@gmail.com" type="email" required name="email" formControlName="email" />
+      @if (email?.invalid) {
+        <mat-error>{{ getEmailError() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="12345678" type="password" minlength="8" required name="password" formControlName="password" />
+      @if (password?.invalid) {
+        <mat-error>{{ getPasswordError() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput placeholder="12345678" type="password" required name="confirmPassword" formControlName="confirmPassword" />
+      @if (confirmPassword?.invalid) {
+        <mat-error>{{ getConfirmPasswordError() }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Close</button>
+  <button mat-flat-button type="submit" [disabled]="isInvalidForm()" (click)="sendForm()">Sign Up</button>
+</mat-dialog-actions>

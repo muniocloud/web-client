@@ -1,0 +1,16 @@
+.dialog {
+  &-title {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  &-signup-form {
+    margin-top: 5px;
+  
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
