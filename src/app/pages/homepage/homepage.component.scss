@@ -1,0 +1,25 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 80%;
+
+  header {
+    max-width: 750px;
+  }
+
+  &-how-it-works {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &-steps {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}

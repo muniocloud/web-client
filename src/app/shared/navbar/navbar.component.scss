@@ -1,0 +1,13 @@
+.app-navbar {
+  display: flex;
+  justify-content: space-between;
+
+  &-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  app-logo {
+    margin-right: 8px;
+  }
+}
