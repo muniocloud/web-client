@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { BASE_URL } from '../shared/api/base-url.provider';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, finalize, map, Observable } from 'rxjs';
 
 type User = {
   name: string;
@@ -14,10 +14,13 @@ type User = {
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   private currentUser: Observable<User | null>;
+  isLoading = signal(false);
 
   constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
-    this.currentUserSubject = new BehaviorSubject<any>(this.getUser());
+    this.isLoading.set(true);
+    this.currentUserSubject = new BehaviorSubject<any>(null);
     this.currentUser = this.currentUserSubject.asObservable();
+    this.loadUser();
   }
 
   getCurrentUser() {
@@ -33,12 +36,20 @@ export class AuthService {
   }
 
   async loadUser() {
-    (await this.getUser()).subscribe(value => {
+    if (!this.getUserToken()) {
+      this.isLoading.set(false);
+      return;
+    }
+
+    (await this.getUser()).pipe(finalize(() => {
+      this.isLoading.set(false);
+    }))
+    .subscribe(value => {
       this.currentUserSubject.next(value);
     });
   }
 
-  async getUser() {
+  getUser() {
     return this.http.get<User>(`${this.baseUrl}/user`);
   }
 
