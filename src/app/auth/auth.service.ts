@@ -16,9 +16,8 @@ export class AuthService {
   private currentUser: Observable<User | null>;
 
   constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
-    this.currentUserSubject = new BehaviorSubject<any>(null);
+    this.currentUserSubject = new BehaviorSubject<any>(this.getUser());
     this.currentUser = this.currentUserSubject.asObservable();
-    this.loadUser();
   }
 
   getCurrentUser() {
