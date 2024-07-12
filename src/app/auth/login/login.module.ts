@@ -7,8 +7,9 @@ import { LoginButtonComponent } from './login-button.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { LogoComponent } from "../logo/logo.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { LogoComponent } from '../../components/logo/logo.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     LogoComponent,
     ReactiveFormsModule,
+    MatProgressBar,
 ],
   declarations: [LoginDialogComponent, LoginButtonComponent],
   exports: [LoginButtonComponent],

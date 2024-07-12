@@ -7,8 +7,8 @@ import { SignUpDialogComponent } from './signup-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { LogoComponent } from '../logo/logo.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LogoComponent } from '../../components/logo/logo.component';
 
 @NgModule({
   imports: [

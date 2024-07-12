@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { merge } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login-dialog',
@@ -11,6 +11,8 @@ import { merge } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginDialogComponent {
+  private loginService = inject(AuthService);
+
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -21,6 +23,10 @@ export class LoginDialogComponent {
       Validators.minLength(8),
     ]),
   });
+
+  isLoading = signal(false);
+
+  requestError = signal('');
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>) {
   }
@@ -73,7 +79,32 @@ export class LoginDialogComponent {
     return null;
   }
 
-  sendForm() {
-    console.log('data', this.loginForm.value.email, this.loginForm.value.password);
+  async sendForm() {
+    const { email, password } = this.loginForm.value;
+
+    if (!email || !password) {
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    this.loginService.login(email, password)
+      .pipe(finalize(() => {
+        this.isLoading.set(false);
+      }))
+      .subscribe({
+      error: (error) => {
+        if (error.status === 401) {
+          this.requestError.set('E-mail or password is wrong.');
+          return;
+        }
+
+        this.requestError.set(error.message);
+      },
+      next: () => {
+        this.requestError.set('');
+        this.close();
+      },
+    });
   }
 }
