@@ -1,9 +1,19 @@
 <div mat-dialog-title class="dialog-title">
   <app-logo class="dialog-app-logo"/>
   <h2 class="mat-title-large">Create your account</h2>
+  @if (isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 </div>
 <mat-dialog-content>
   <form class="dialog-signup-form" [formGroup]="signUpForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Gabriel" type="text" required name="name" formControlName="name" />
+      @if (name?.invalid) {
+        <mat-error>{{ getNameError() }}</mat-error>
+      }
+    </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>E-mail</mat-label>
       <input matInput placeholder="gabriel@gmail.com" type="email" required name="email" formControlName="email" />
@@ -25,6 +35,9 @@
         <mat-error>{{ getConfirmPasswordError() }}</mat-error>
       }
     </mat-form-field>
+    @if (requestError()) {
+      <p class="auth-dialog-form-error">{{ requestError() }}</p>
+    }
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoComponent } from '../../components/logo/logo.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { LogoComponent } from '../../components/logo/logo.component';
     MatIconModule,
     LogoComponent,
     ReactiveFormsModule,
+    MatProgressBar,
   ],
   declarations: [SignUpButtonComponent, SignUpDialogComponent],
   exports: [SignUpButtonComponent],

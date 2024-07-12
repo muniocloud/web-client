@@ -2,7 +2,7 @@
 @use '@angular/material' as mat;
 
 @mixin color($theme) {
-  .dialog-login-form-error {
+  .auth-dialog-form-error {
     color: mat.get-theme-color($theme, error);
   }
 }

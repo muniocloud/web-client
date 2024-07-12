@@ -11,7 +11,7 @@ import { finalize } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginDialogComponent {
-  private loginService = inject(AuthService);
+  private authService = inject(AuthService);
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -88,18 +88,18 @@ export class LoginDialogComponent {
 
     this.isLoading.set(true);
 
-    this.loginService.login(email, password)
+    this.authService.login(email, password)
       .pipe(finalize(() => {
         this.isLoading.set(false);
       }))
       .subscribe({
-      error: (error) => {
-        if (error.status === 401) {
+      error: (response) => {
+        if (response.status === 401) {
           this.requestError.set('E-mail or password is wrong.');
           return;
         }
 
-        this.requestError.set(error.message);
+        this.requestError.set(response.error.message);
       },
       next: () => {
         this.requestError.set('');

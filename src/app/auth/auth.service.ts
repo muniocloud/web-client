@@ -63,6 +63,16 @@ export class AuthService {
     );
   }
 
+  signup(email: string, password: string, name: string) {
+    return this.http.post<any>(`${this.baseUrl}/auth/signup`, { name, email, password }).pipe(
+      map(async (data) => {
+        localStorage.setItem('user-token', data.accessToken);
+        this.loadUser();
+        return true;
+      }),
+    );
+  }
+
   logout() {
     localStorage.removeItem('user-token');
     this.currentUserSubject.next(null);
