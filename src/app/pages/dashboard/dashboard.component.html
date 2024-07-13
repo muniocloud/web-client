@@ -1,1 +1,28 @@
-<p>dashboard works!</p>
+<main class="dashboard">
+  <mat-toolbar class="dashboard-navbar">
+    <button mat-icon-button aria-label="Menu" (click)="toggleDrawer()" class="dashboard-navbar-menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a mat-button routerLink="/" disableRipple class="dashboard-navbar-logo">
+      <app-logo matButtonIcon/> munio
+    </a>
+  </mat-toolbar>
+  <mat-divider />
+  <mat-drawer-container [hasBackdrop]="false" autosize class="dashboard-drawer-container">
+    <mat-drawer mode="push" #drawer opened>
+      <div class="dashboard-drawer-content">
+        <div class="dashboard-drawer-content-footer">
+          <div *ngIf="authService.getCurrentUser() | async as user" class="dashboard-user" cdkFocusInitial>
+            <app-avatar [name]="user.name" [imageUrl]="user.avatarUrl" />
+            <p>{{ user.name }}</p>
+          </div>
+          <button mat-button (click)="authService.logout()" type="button">Logout</button>
+        </div>
+      </div>
+    </mat-drawer>
+  
+    <mat-drawer-content>
+      content
+    </mat-drawer-content>
+  </mat-drawer-container>
+</main>

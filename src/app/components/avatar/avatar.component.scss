@@ -1,0 +1,18 @@
+.avatar {
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+  }
+
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  // background-color: white;
+  // color: black;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

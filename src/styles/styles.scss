@@ -4,6 +4,7 @@
 @use '@angular/material' as mat;
 @use 'm3-theme' as theme-system;
 @use '../app/components/highlight/highlight-theme' as highlight-component;
+@use '../app/components/avatar/avatar-theme' as avatar-component;
 @use '../app/auth/auth-dialog-theme' as auth-dialog;
 // Plus imports for other components in your app.
 
@@ -20,6 +21,7 @@
   @include mat.all-component-themes(theme-system.$dark-theme);
   @include highlight-component.theme(theme-system.$dark-theme);
   @include auth-dialog.theme(theme-system.$dark-theme);
+  @include avatar-component.theme(theme-system.$dark-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

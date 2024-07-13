@@ -1,0 +1,7 @@
+<div class="avatar">
+  @if (hasImageUrl()) {
+    <img [src]="imageUrl" [alt]="name + ' image'" mat-card-avatar />
+  } @else {
+    <span>{{ name | firstLetter }}</span>
+  }
+</div>
