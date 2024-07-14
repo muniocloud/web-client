@@ -48,10 +48,8 @@ export class AuthService {
     .subscribe(value => {
       this.currentUserSubject.next(value);
       if (value) {
-        this.router.navigate(['dashboard']);
         return;
       }
-      this.router.navigate(['']);
     });
   }
 
@@ -64,6 +62,7 @@ export class AuthService {
       map(async (data) => {
         localStorage.setItem('user-token', data.accessToken);
         this.loadUser();
+        this.router.navigate(['/']);
         return true;
       }),
     );
@@ -74,6 +73,7 @@ export class AuthService {
       map(async (data) => {
         localStorage.setItem('user-token', data.accessToken);
         this.loadUser();
+        this.router.navigate(['/']);
         return true;
       }),
     );
@@ -82,6 +82,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user-token');
     this.currentUserSubject.next(null);
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
   }
 }

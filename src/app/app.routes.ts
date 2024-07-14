@@ -4,15 +4,20 @@ import { publicGuard } from './auth/public.guard';
 
 export const routes: Routes = [
   {
-    path: 'dashboard',
-    pathMatch: 'full',
+    path: '',
+    pathMatch: 'prefix',
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(c => c.DashboardComponent),
     canMatch: [authGuard],
+    children: [
+      {
+        path: 'session',
+        loadComponent: () => import('./pages/dashboard/session/session.component').then(c => c.SessionComponent)
+      }
+    ]
   },
   {
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('./pages/homepage/homepage.component').then(c => c.HomepageComponent),
-    canActivate: [publicGuard],
   },
 ];
