@@ -6,6 +6,7 @@
 @use '../app/components/highlight/highlight-theme' as highlight-component;
 @use '../app/components/avatar/avatar-theme' as avatar-component;
 @use '../app/auth/auth-dialog-theme' as auth-dialog;
+@use './general-theme' as general;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -22,6 +23,7 @@
   @include highlight-component.theme(theme-system.$dark-theme);
   @include auth-dialog.theme(theme-system.$dark-theme);
   @include avatar-component.theme(theme-system.$dark-theme);
+  @include general.theme(theme-system.$dark-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

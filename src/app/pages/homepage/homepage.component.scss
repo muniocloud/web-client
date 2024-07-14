@@ -1,4 +1,4 @@
-.homepage {
+:host {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@
     max-width: 750px;
   }
 
-  &-how-it-works {
+  .homepage-how-it-works {
     display: flex;
     flex-direction: column;
     gap: 12px;
