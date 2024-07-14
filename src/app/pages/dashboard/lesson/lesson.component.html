@@ -1,0 +1,36 @@
+@if (isSubmitting()) {
+  <mat-progress-bar mode="indeterminate" class="submitting-progress"></mat-progress-bar>
+}
+<div *ngIf="(answerFeedback | async) as answer; else lessonBlock" class="answer">
+  <header>
+    <h2 class="mat-title-medium primary-heading">{{ getAnswerTitle(answer.rating) }}</h2>
+    <p class="mat-title-large">"{{ phrse }}"</p>
+    <div class="answer-audio">
+      <button mat-icon-button aria-label="play audio" (click)="toggleAudio()" class="answer-audio-player-btn">
+        <mat-icon>{{ isPlayingAudio() ? 'pause' : 'play_arrow'}}</mat-icon>
+      </button>
+      <div id="waveaudio" class="answer-audio-track"></div>
+    </div>
+    <p class="mat-body-large">{{ answer.feedback }}</p>
+  </header>
+  <main>
+    <button mat-button class="retry-btn" (click)="retryLesson()">Retry</button>
+    <button mat-flat-button class="next-btn" (click)="nextLesson()">{{ answer.nextLessonId ? 'Next Lesson' : 'Finish Session'}}</button>
+  </main>
+</div>
+
+<ng-template #lessonBlock>
+<div class="lesson">
+  <header>
+    <h2 class="mat-title-medium primary-heading">Speak the phrase:</h2>
+    <p class="mat-title-large">"{{ phrse }}"</p>
+    <p class="mat-body-medium">Click on button bellow and start speaking. Click again to stop recording.</p>
+  </header>
+  <main>
+    <button mat-fab aria-label="start recording audio" (click)="isRecording() ? stopRecording() : startRecording()">
+      <mat-icon>mic</mat-icon>
+    </button>
+    <p *ngIf="isRecording()">{{ recordingTime }}</p>
+  </main>
+</div>
+</ng-template>
