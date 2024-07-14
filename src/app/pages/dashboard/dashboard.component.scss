@@ -1,60 +1,7 @@
-.dashboard {
-  height: 100%;
+app-dashboard {
+  flex: 1;
   display: flex;
   flex-direction: column;
-
-  &-navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-   &-logo:hover {
-    --mat-text-button-state-layer-color: none;
-    }
-
-    &-right {
-      display: flex;
-      padding: 8px;
-      gap: 10px;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-
-  &-user {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-
-    p {
-      margin: 0;
-    }
-  }
-
-  &-drawer {
-    &-container {
-      flex: 1;
-    }
-
-    &-content {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-
-      &-footer {
-        margin-top: auto;
-        display: flex;
-        padding: 8px;
-        justify-content: space-between;
-      }
-    }
-  }
-
-  &-content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  align-items: center;
+  justify-content: center;
 }

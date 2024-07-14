@@ -1,9 +1,0 @@
-@if (authService.isLoading()) {
-  <div class="home-loading">
-    <mat-spinner mode="indeterminate" [diameter]="200"/>
-  </div>
-} @else if (authService.isAuthenticated()) {
-  <app-dashboard />
-} @else {
-  <app-homepage />
-}

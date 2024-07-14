@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, signal } from '@angular/core';
 import { BASE_URL } from '../shared/api/base-url.provider';
 import { BehaviorSubject, finalize, map, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 type User = {
   name: string;
@@ -16,9 +17,9 @@ export class AuthService {
   private currentUser: Observable<User | null>;
   isLoading = signal(false);
 
-  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
+  constructor(private http: HttpClient, @Inject(BASE_URL) private baseUrl: string, private router: Router) {
     this.isLoading.set(true);
-    this.currentUserSubject = new BehaviorSubject<any>(null);
+    this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
     this.loadUser();
   }
@@ -28,7 +29,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return !!this.currentUserSubject.value;
+    return !!this.getUserToken();
   }
 
   getUserToken() {
@@ -46,6 +47,11 @@ export class AuthService {
     }))
     .subscribe(value => {
       this.currentUserSubject.next(value);
+      if (value) {
+        this.router.navigate(['dashboard']);
+        return;
+      }
+      this.router.navigate(['']);
     });
   }
 
@@ -76,5 +82,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user-token');
     this.currentUserSubject.next(null);
+    this.router.navigate(['']);
   }
 }

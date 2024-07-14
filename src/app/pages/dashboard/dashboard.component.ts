@@ -12,6 +12,7 @@ import { MatDivider } from '@angular/material/divider';
 import { AvatarComponent } from "../../components/avatar/avatar.component";
 import { AuthService } from '../../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,7 @@ import { CommonModule } from '@angular/common';
     MatDivider,
     AvatarComponent,
     CommonModule,
+    RouterOutlet,
 ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
