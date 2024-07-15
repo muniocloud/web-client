@@ -8,8 +8,8 @@
     <form class="session-creator-form" [formGroup]="sessionCreatorForm" (ngSubmit)="createSession()">
       <div class="session-creator-form-main-inputs">
         <mat-form-field appearance="outline">
-          <mat-label>Difficult</mat-label>
-          <mat-select formControlName="difficult">
+          <mat-label>Level</mat-label>
+          <mat-select formControlName="level">
             <mat-option value="3">Hard</mat-option>
             <mat-option value="2">Medium</mat-option>
             <mat-option value="1">Easy</mat-option>
@@ -20,7 +20,15 @@
           <mat-select formControlName="context">
             <mat-option value="routine">Routine</mat-option>
             <mat-option value="school">School</mat-option>
+            <mat-option value="hobbies">Hobbies</mat-option>
+            <mat-option value="cinema">Cinema</mat-option>
             <mat-option value="travel">Travel</mat-option>
+            <mat-option value="work">Work</mat-option>
+            <mat-option value="shopping">Shopping</mat-option>
+            <mat-option value="social life">Social Life</mat-option>
+            <mat-option value="health & wellness">Health & Wellness</mat-option>
+            <mat-option value="family life">Family Life</mat-option>
+            <mat-option value="dining out">Dining Out</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

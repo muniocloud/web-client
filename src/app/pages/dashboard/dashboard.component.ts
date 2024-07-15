@@ -51,7 +51,7 @@ export class DashboardComponent {
   isLoading = signal(false);
 
   sessionCreatorForm = new FormGroup({
-    difficult: new FormControl('1', [
+    level: new FormControl('1', [
       Validators.required,
     ]),
     lessons: new FormControl('3', [
@@ -76,7 +76,7 @@ export class DashboardComponent {
       sessionId: number;
       lessonsIds: number[];
     }>(`${this.baseUrl}/sessions`, {
-      level: +(this.sessionCreatorForm.value.difficult ?? 1),
+      level: +(this.sessionCreatorForm.value.level ?? 1),
       lessons: +(this.sessionCreatorForm.value.lessons ?? 2),
       context: this.sessionCreatorForm.value.context,
     })
