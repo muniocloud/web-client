@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-highlight',
+  selector: 'app-feature-card',
   standalone: true,
   imports: [],
-  templateUrl: './highlight.component.html',
-  styleUrl: './highlight.component.scss'
+  templateUrl: './feature-card.component.html',
+  styleUrl: './feature-card.component.scss'
 })
-export class HighlightComponent {
+export class FeatureCardComponent {
   @Input({ required: true })
   title = '';
 

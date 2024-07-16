@@ -1,45 +1,37 @@
 <div mat-dialog-title class="dialog-title">
   <app-logo class="dialog-app-logo"/>
   <h2 class="mat-title-large">Create your account</h2>
-  @if (isLoading()) {
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  }
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 </div>
 <mat-dialog-content>
-  <form class="dialog-signup-form" [formGroup]="signUpForm">
+  <form class="dialog-form" [formGroup]="signUpForm">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput placeholder="Gabriel" type="text" required name="name" formControlName="name" />
-      @if (name?.invalid) {
-        <mat-error>{{ getNameError() }}</mat-error>
-      }
+      <mat-error *ngIf="name?.invalid">{{ getNameError() }}</mat-error>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>E-mail</mat-label>
       <input matInput placeholder="gabriel@gmail.com" type="email" required name="email" formControlName="email" />
-      @if (email?.invalid) {
-        <mat-error>{{ getEmailError() }}</mat-error>
-      }
+      <mat-error *ngIf="email?.invalid">{{ getEmailError() }}</mat-error>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput placeholder="12345678" type="password" minlength="8" required name="password" formControlName="password" />
-      @if (password?.invalid) {
-        <mat-error>{{ getPasswordError() }}</mat-error>
-      }
+      <mat-error *ngIf="password?.invalid">{{ getPasswordError() }}</mat-error>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Confirm Password</mat-label>
       <input matInput placeholder="12345678" type="password" required name="confirmPassword" formControlName="confirmPassword" />
-      @if (confirmPassword?.invalid) {
-        <mat-error>{{ getConfirmPasswordError() }}</mat-error>
-      }
+      <mat-error *ngIf="confirmPassword?.invalid">{{ getConfirmPasswordError() }}</mat-error>
     </mat-form-field>
-    @if (requestError()) {
-      <p class="auth-dialog-form-error">{{ requestError() }}</p>
-    }
+    <p class="auth-dialog-form-error" *ngIf="requestError">{{ requestError }}</p>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-button (click)="close()">Close</button>
   <button mat-flat-button type="submit" [disabled]="isInvalidForm()" (click)="sendForm()">Sign Up</button>

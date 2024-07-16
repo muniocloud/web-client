@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpDialogComponent } from './signup-dialog.component';
+import { DIALOG_MIN_WIDTH } from './signup.constants';
 
 @Component({
   selector: 'app-signup-button',
@@ -11,7 +12,7 @@ export class SignUpButtonComponent {
 
   openDialog() {
     this.dialog.open(SignUpDialogComponent, {
-      minWidth: '300px',
+      minWidth: DIALOG_MIN_WIDTH,
     });
   }
 }

@@ -1,19 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { sameFieldValue } from './same-field-value.directive';
+import { sameFieldValue } from '../../shared/validators/same-field-value.validator';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from '../auth.service';
 import { finalize } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-signup-dialog',
   templateUrl: './signup-dialog.component.html',
   styleUrl: './signup-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpDialogComponent {
-  private authService = inject(AuthService);
-
   signUpForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -32,12 +29,14 @@ export class SignUpDialogComponent {
     ]),
   });
 
-  isLoading = signal(false);
+  isLoading = false;
 
-  requestError = signal('');
+  requestError = '';
 
-  constructor(public dialogRef: MatDialogRef<SignUpDialogComponent>) {
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly dialogRef: MatDialogRef<SignUpDialogComponent>,
+  ) {}
 
   get email() {
     return this.signUpForm.get('email');
@@ -53,10 +52,6 @@ export class SignUpDialogComponent {
 
   get name() {
     return this.signUpForm.get('name');
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 
   isInvalidForm() {
@@ -95,7 +90,6 @@ export class SignUpDialogComponent {
     return null;
   }
 
-
   getPasswordError() {
     if (!this.password?.invalid) {
       return null;
@@ -124,6 +118,10 @@ export class SignUpDialogComponent {
     return null;
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   async sendForm() {
     const { email, password, name } = this.signUpForm.value;
 
@@ -131,18 +129,19 @@ export class SignUpDialogComponent {
       return;
     }
 
-    this.isLoading.set(true);
+    this.isLoading = true;
 
     this.authService.signup(email, password, name)
-      .pipe(finalize(() => {
-        this.isLoading.set(false);
+      .pipe(
+        finalize(() => {
+        this.isLoading = false;
       }))
       .subscribe({
       error: (response) => {
-        this.requestError.set(response.error.message);
+        this.requestError = response.error.message;
       },
       next: () => {
-        this.requestError.set('');
+        this.requestError = '';
         this.close();
       },
     });

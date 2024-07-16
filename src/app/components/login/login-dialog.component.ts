@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from '../../auth/auth.service';
 import { finalize } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
   styleUrl: './login-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginDialogComponent {
-  private authService = inject(AuthService);
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -24,12 +23,14 @@ export class LoginDialogComponent {
     ]),
   });
 
-  isLoading = signal(false);
+  isLoading = false;
 
-  requestError = signal('');
+  requestError = '';
 
-  constructor(public dialogRef: MatDialogRef<LoginDialogComponent>) {
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly dialogRef: MatDialogRef<LoginDialogComponent>,
+  ) {}
 
   get email() {
     return this.loginForm.get('email');
@@ -37,10 +38,6 @@ export class LoginDialogComponent {
 
   get password() {
     return this.loginForm.get('password');
-  }
-
-  close() {
-    this.dialogRef.close();
   }
 
   isInvalidForm() {
@@ -79,6 +76,10 @@ export class LoginDialogComponent {
     return null;
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   async sendForm() {
     const { email, password } = this.loginForm.value;
 
@@ -86,23 +87,23 @@ export class LoginDialogComponent {
       return;
     }
 
-    this.isLoading.set(true);
+    this.isLoading = true;
 
     this.authService.login(email, password)
       .pipe(finalize(() => {
-        this.isLoading.set(false);
+        this.isLoading = false;
       }))
       .subscribe({
-      error: (response) => {
-        if (response.status === 401) {
-          this.requestError.set('E-mail or password is wrong.');
+      error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.requestError = 'E-mail or password is wrong.';
           return;
         }
 
-        this.requestError.set(response.error.message);
+        this.requestError = error.error.message;
       },
       next: () => {
-        this.requestError.set('');
+        this.requestError = '';
         this.close();
       },
     });

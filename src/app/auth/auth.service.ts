@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BASE_URL } from '../shared/api/base-url.provider';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -75,7 +75,7 @@ export class AuthService {
         map(async (data) => {
           this.setupUser(data.accessToken);
           return true;
-        })
+        }),
       );
   }
 

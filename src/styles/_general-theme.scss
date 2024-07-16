@@ -5,6 +5,10 @@
   .primary-heading {
     color: mat.get-theme-color($theme, on-background);
   }
+
+  .auth-dialog-form-error {
+    color: mat.get-theme-color($theme, error);
+  }
 }
 
 @mixin theme($theme) {

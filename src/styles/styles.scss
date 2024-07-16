@@ -3,9 +3,8 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 @use 'm3-theme' as theme-system;
-@use '../app/components/highlight/highlight-theme' as highlight-component;
+@use '../app/components/feature-card/feature-card-theme' as feature-card-component;
 @use '../app/components/avatar/avatar-theme' as avatar-component;
-@use '../app/auth/auth-dialog-theme' as auth-dialog;
 @use './general-theme' as general;
 // Plus imports for other components in your app.
 
@@ -20,8 +19,7 @@
 :root {
   @include mat.core-theme(theme-system.$dark-theme);
   @include mat.all-component-themes(theme-system.$dark-theme);
-  @include highlight-component.theme(theme-system.$dark-theme);
-  @include auth-dialog.theme(theme-system.$dark-theme);
+  @include feature-card-component.theme(theme-system.$dark-theme);
   @include avatar-component.theme(theme-system.$dark-theme);
   @include general.theme(theme-system.$dark-theme);
 }
