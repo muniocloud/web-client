@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Inject, ViewChild, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject, finalize } from 'rxjs';
-import { BASE_URL } from '../../../shared/api/base-url.provider';
+import { BASE_URL } from '../../../shared/providers/base-url.provider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { AudioRecordingService } from '../../../shared/audio-recording.service';
+import { AudioRecordingService } from '../../../shared/services/audio-recording.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDivider } from '@angular/material/divider';
 import WaveSurfer from 'wavesurfer.js'

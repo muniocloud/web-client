@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { BASE_URL } from '../shared/api/base-url.provider';
+import { BASE_URL } from '../shared/providers/base-url.provider';
 import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';

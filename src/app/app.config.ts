@@ -4,7 +4,7 @@ import { provideRouter, withRouterConfig } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { baseUrlProvider } from './shared/api/base-url.provider';
+import { baseUrlProvider } from './shared/providers/base-url.provider';
 import { AuthService } from './auth/auth.service';
 import { authInterceptor } from './auth/interceptors/auth.interceptor';
 

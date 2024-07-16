@@ -16,7 +16,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlider, MatSliderModule } from '@angular/material/slider';
 import { HttpClient } from '@angular/common/http';
-import { BASE_URL } from '../../shared/api/base-url.provider';
+import { BASE_URL } from '../../shared/providers/base-url.provider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { finalize } from 'rxjs';
 

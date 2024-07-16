@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BASE_URL } from '../../../shared/api/base-url.provider';
+import { BASE_URL } from '../../../shared/providers/base-url.provider';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
