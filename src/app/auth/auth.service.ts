@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { BASE_URL } from '../shared/api/base-url.provider';
-import { BehaviorSubject, finalize, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 type User = {
   name: string;
@@ -15,14 +16,13 @@ type User = {
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   private currentUser: Observable<User | null>;
-  isLoading = signal(false);
 
   constructor(
     private http: HttpClient,
     @Inject(BASE_URL) private baseUrl: string,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
-    this.isLoading.set(true);
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
     this.loadUser();
@@ -40,30 +40,32 @@ export class AuthService {
     return localStorage.getItem('user-token');
   }
 
+  private getUser() {
+    return this.http.get<User>(`${this.baseUrl}/user`);
+  }
+
   async loadUser() {
     if (!this.getUserToken()) {
-      this.isLoading.set(false);
       return;
     }
 
     const userObserver = await this.getUser();
 
     userObserver
-      .pipe(
-        finalize(() => {
-          this.isLoading.set(false);
-        })
-      )
-      .subscribe((value) => {
-        this.currentUserSubject.next(value);
-        if (value) {
-          return;
+      .subscribe({
+        next: (value) => {
+          this.currentUserSubject.next(value);
+        },
+        error: ({ status, statusText }: { status: number, statusText: string }) => {
+          this.snackBar.open(`HTTP Error, ${status} ${statusText}.`, 'Dismiss', {
+            duration: 5 * 1000,
+          });
+          if (status === HttpStatusCode.Unauthorized) {
+            localStorage.removeItem('user-token');
+            this.router.navigate(['/']);
+          }
         }
       });
-  }
-
-  private getUser() {
-    return this.http.get<User>(`${this.baseUrl}/user`);
   }
 
   login(email: string, password: string) {
@@ -71,9 +73,7 @@ export class AuthService {
       .post<any>(`${this.baseUrl}/auth/login`, { email, password })
       .pipe(
         map(async (data) => {
-          localStorage.setItem('user-token', data.accessToken);
-          this.loadUser();
-          this.router.navigate(['/']);
+          this.setupUser(data.accessToken);
           return true;
         })
       );
@@ -84,12 +84,16 @@ export class AuthService {
       .post<any>(`${this.baseUrl}/auth/signup`, { name, email, password })
       .pipe(
         map(async (data) => {
-          localStorage.setItem('user-token', data.accessToken);
-          this.loadUser();
-          this.router.navigate(['/']);
+          this.setupUser(data.accessToken);
           return true;
         })
       );
+  }
+
+  private setupUser(accessToken: string) {
+    localStorage.setItem('user-token', accessToken);
+    this.loadUser();
+    this.router.navigate(['/']);
   }
 
   logout() {
