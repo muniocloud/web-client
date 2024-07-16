@@ -9,6 +9,8 @@ import { AvatarComponent } from '../avatar/avatar.component';
 import { AuthService } from '../../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SNACKBAR_DURATION_LOGOUT_INFO } from './navbar.constants';
 
 @Component({
   selector: 'app-navbar',
@@ -28,5 +30,24 @@ import { MatDivider } from '@angular/material/divider';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  authService = inject(AuthService);
+  constructor(
+    private readonly authService: AuthService,
+    private readonly snackBar: MatSnackBar
+  ) {}
+
+  isPublicContent() {
+    return !this.authService.isAuthenticated();
+  }
+
+  getCurrentUser() {
+    return this.authService.getCurrentUser();
+  }
+
+  logout() {
+    this.snackBar.open('Goodbye!', 'Dismiss', {
+      duration: SNACKBAR_DURATION_LOGOUT_INFO,
+    });
+
+    return this.authService.logout();
+  }
 }

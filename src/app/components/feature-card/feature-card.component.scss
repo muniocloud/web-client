@@ -1,4 +1,4 @@
-.highlight {
+.feature-card {
   max-width: 250px;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
   align-items: center;
   gap: 20px;
   
-  .highlight-value {
+  .feature-card-value {
     height: 48px;
     width: 48px;
     text-align: center;

@@ -1,11 +1,11 @@
 import { Component, Input, computed } from '@angular/core';
-import { FirstLetterPipe } from './first-letter.pipe';
-import { MatCardAvatar, MatCardModule } from '@angular/material/card';
+import { FirstLetterPipe } from '../../shared/pipes/first-letter.pipe';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-avatar',
   standalone: true,
-  imports: [FirstLetterPipe, MatCardAvatar, MatCardModule],
+  imports: [FirstLetterPipe, CommonModule],
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.scss'
 })

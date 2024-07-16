@@ -1,7 +1,7 @@
 <div class="avatar" [style]="avatarVariableStyles()">
   @if (hasImageUrl()) {
-    <img [src]="imageUrl" [alt]="name + ' image'" mat-card-avatar />
+    <img [src]="imageUrl" [alt]="name + ' image'" />
   } @else {
-    <span>{{ name | firstLetter }}</span>
+    <span class="mat-body-large">{{ name | firstLetter }}</span>
   }
 </div>

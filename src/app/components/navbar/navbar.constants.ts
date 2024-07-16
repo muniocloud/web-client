@@ -1,0 +1,1 @@
+export const SNACKBAR_DURATION_LOGOUT_INFO = 2 * 1000;

@@ -1,1 +1,2 @@
 export const DIALOG_MIN_WIDTH = 300;
+export const SNACKBAR_DURATION_LOGIN_INFO = 2 * 1000;

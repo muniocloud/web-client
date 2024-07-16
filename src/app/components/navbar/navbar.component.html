@@ -3,15 +3,15 @@
     <app-logo matButtonIcon/> munio
   </a>
   <div class="app-navbar-actions">
-    @if (!authService.isAuthenticated()) {
+    @if (isPublicContent()) {
       <app-login-button/>
       <app-signup-button/>
     } @else {
-      <div *ngIf="authService.getCurrentUser() | async as user" class="user" cdkFocusInitial>
+      <div *ngIf="getCurrentUser() | async as user" class="user" cdkFocusInitial>
         <app-avatar [name]="user.name" [imageUrl]="user.avatarUrl" />
         <span class="mat-label-large">{{ user.name }}</span>
       </div>
-      <button mat-button (click)="authService.logout()" type="button">Logout</button>
+      <button mat-button (click)="logout()" type="button">Logout</button>
     }
   </div>
 </mat-toolbar>

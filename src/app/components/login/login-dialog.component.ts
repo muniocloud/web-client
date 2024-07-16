@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { HttpStatusCode } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SNACKBAR_DURATION_LOGIN_INFO } from './login.constants';
 
 @Component({
   selector: 'app-login-dialog',
@@ -30,6 +32,7 @@ export class LoginDialogComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly dialogRef: MatDialogRef<LoginDialogComponent>,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   get email() {
@@ -104,6 +107,9 @@ export class LoginDialogComponent {
       },
       next: () => {
         this.requestError = '';
+        this.snackBar.open('Login success!', 'Dismiss', {
+          duration: SNACKBAR_DURATION_LOGIN_INFO,
+        });
         this.close();
       },
     });

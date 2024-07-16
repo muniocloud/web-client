@@ -4,6 +4,8 @@ import { sameFieldValue } from '../../shared/validators/same-field-value.validat
 import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
+import { SNACKBAR_DURATION_SIGNUP_INFO } from './signup.constants';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup-dialog',
@@ -36,6 +38,7 @@ export class SignUpDialogComponent {
   constructor(
     private readonly authService: AuthService,
     private readonly dialogRef: MatDialogRef<SignUpDialogComponent>,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   get email() {
@@ -143,6 +146,9 @@ export class SignUpDialogComponent {
       next: () => {
         this.requestError = '';
         this.close();
+        this.snackBar.open('Account created.', 'Dismiss', {
+          duration: SNACKBAR_DURATION_SIGNUP_INFO,
+        });
       },
     });
   }

@@ -2,7 +2,7 @@
 @use '@angular/material' as mat;
 
 @mixin color($theme) {
-  .highlight-value {
+  .feature-card-value {
     background-color: mat.get-theme-color($theme, primary, 50);
   }
 }
