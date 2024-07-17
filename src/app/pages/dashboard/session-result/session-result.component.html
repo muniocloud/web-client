@@ -3,7 +3,7 @@
 
 <div *ngIf="sessionResult | async as data" class="session-result">
 <header>
-  <h2 class="mat-display-small primary-heading">{{ getTitleByRating(data.rating) }}</h2>
+  <h2 class="mat-display-small primary-heading">{{ sessionFeedbackTitle }}</h2>
   <p class="mat-title-small">Rating: {{ data.rating }} of 10.</p>
 </header>
 <main>

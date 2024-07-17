@@ -9,6 +9,7 @@ import markdownit from 'markdown-it'
 import { SessionResult } from './session-result.types';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PageErrorComponent } from "../../../components/page-error/page-error.component";
+import { getTitle } from '../../../shared/utils/feedback-title';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SessionResultComponent {
   sessionId: number = 0;
   isLoading: boolean = false;
   sessionFeedbackContent: string = '';
+  sessionFeedbackTitle: string = '';
   sessionResult = new BehaviorSubject<SessionResult | null>(null);
   pageError = '';
 
@@ -45,28 +47,13 @@ export class SessionResultComponent {
           next: (data) => {
             this.sessionResult.next(data);
             this.sessionFeedbackContent = markdownit().render(data.feedback);
+            this.sessionFeedbackTitle = getTitle(data.rating);
           },
           error: (response: { status: number, statusText: string }) => {
             this.pageError = `${response.status} ${response.statusText}`;
           },
         });
     });
-  }
-
-  getTitleByRating(rating: number) {
-    if (rating <= 3) {
-      return 'We need to improve!';
-    }
-
-    if (rating <= 5) {
-      return 'Almost done, we have some work to do!';
-    }
-
-    if (rating <= 8) {
-      return 'You are doing well!!';
-    }
-
-    return 'Congratulations!! 🎉🎉'
   }
 
   goHome() {

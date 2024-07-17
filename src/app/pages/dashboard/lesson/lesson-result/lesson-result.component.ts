@@ -6,6 +6,7 @@ import { nextTick } from '../../../../shared/utils/next-tick';
 import WaveSurfer from 'wavesurfer.js';
 import { AudioViewerService } from '../../../../shared/services/audio-viewer.service';
 import { RecordedData } from '../../../../shared/services/audio-recorder.types';
+import { getTitle } from '../../../../shared/utils/feedback-title';
 
 @Component({
   selector: 'app-lesson-result',
@@ -19,6 +20,8 @@ export class LessonResultComponent {
   @Input({ required: true }) recordedData!: RecordedData;
   @Input({ required: true }) phrase: string = '';
 
+  feedbackTitle: string = '';
+
   onRetry = output();
   onContinue = output();
 
@@ -27,6 +30,7 @@ export class LessonResultComponent {
   constructor(private readonly audioViewer: AudioViewerService) {
     nextTick(() => {
       this.audioViewerInstance = this.audioViewer.createAudioViewerInstance('#audioviewer', this.recordedData.url);
+      this.feedbackTitle = getTitle(this.feedback.rating);
     });
   }
 
@@ -44,21 +48,5 @@ export class LessonResultComponent {
 
   nextLesson() {
     this.onContinue.emit();
-  }
-
-  getAnswerTitle(rating: number) {
-    if (rating <= 3) {
-      return 'Let\'s try again?';
-    }
-
-    if (rating <= 5) {
-      return 'Ok, we need to improve it!';
-    }
-
-    if (rating <= 8) {
-      return 'Almost done!';
-    }
-
-    return 'You are good!';
   }
 }
