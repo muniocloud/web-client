@@ -23,4 +23,8 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadComponent: () => import('./pages/homepage/homepage.component').then(c => c.HomepageComponent),
   },
+  {
+    path: '**',
+    loadComponent: () => import('./pages/not-found/not-found.component').then(c => c.NotFoundComponent),
+  },
 ];

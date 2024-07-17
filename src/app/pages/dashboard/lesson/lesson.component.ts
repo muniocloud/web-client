@@ -15,7 +15,7 @@ import { RecordedData } from '../../../shared/services/audio-recorder.types';
 import { AnswerFeedback, Lesson } from './lesson.types';
 import { LessonResultComponent } from "./lesson-result/lesson-result.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LessonPageErrorComponent } from "./lesson-page-error/lesson-page-error.component";
+import { PageErrorComponent } from '../../../components/page-error/page-error.component';
 @Component({
   selector: 'app-lesson',
   standalone: true,
@@ -30,7 +30,7 @@ import { LessonPageErrorComponent } from "./lesson-page-error/lesson-page-error.
     AudioRecorderComponent,
     LessonViewComponent,
     LessonResultComponent,
-    LessonPageErrorComponent
+    PageErrorComponent,
 ],
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.scss',
