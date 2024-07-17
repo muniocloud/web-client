@@ -1,4 +1,5 @@
 runtime: nodejs22
+service: frontend
 
 handlers:
 
