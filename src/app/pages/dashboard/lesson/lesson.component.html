@@ -1,7 +1,9 @@
 <mat-progress-bar mode="indeterminate" class="submitting-progress-bar" *ngIf="isSubmitting"></mat-progress-bar>
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
 
-<ng-content *ngIf="!isLoading">
+<app-lesson-page-error *ngIf="pageError" [errorMessage]="pageError" />
+
+<ng-content *ngIf="!isLoading && !pageError">
   <ng-content *ngIf="(feedback | async) as feedback; else lessonBlock">
     <app-lesson-result [feedback]="feedback" [phrase]="phrase" [recordedData]="recordedData!" (onContinue)="nextLesson()" (onRetry)="retryLesson()"/>
   </ng-content>

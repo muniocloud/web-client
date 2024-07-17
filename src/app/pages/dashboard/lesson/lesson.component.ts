@@ -14,6 +14,8 @@ import { LessonViewComponent } from "./lesson-view/lesson-view.component";
 import { RecordedData } from '../../../shared/services/audio-recorder.types';
 import { AnswerFeedback, Lesson } from './lesson.types';
 import { LessonResultComponent } from "./lesson-result/lesson-result.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LessonPageErrorComponent } from "./lesson-page-error/lesson-page-error.component";
 @Component({
   selector: 'app-lesson',
   standalone: true,
@@ -27,7 +29,8 @@ import { LessonResultComponent } from "./lesson-result/lesson-result.component";
     MatButtonModule,
     AudioRecorderComponent,
     LessonViewComponent,
-    LessonResultComponent
+    LessonResultComponent,
+    LessonPageErrorComponent
 ],
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.scss',
@@ -38,6 +41,7 @@ export class LessonComponent {
 
   isSubmitting = false;
   isLoading: boolean = false;
+  pageError: string = '';
 
   phrase: string = '';
   feedback = new BehaviorSubject<AnswerFeedback | null>(null);
@@ -47,7 +51,8 @@ export class LessonComponent {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    @Inject(BASE_URL) private baseUrl: string
+    @Inject(BASE_URL) private baseUrl: string,
+    private readonly snackBar: MatSnackBar
   ) {
     this.isLoading = true;
 
@@ -62,8 +67,13 @@ export class LessonComponent {
             this.isLoading = false;
           })
         )
-        .subscribe((data) => {
-          this.phrase = data.phrase;
+        .subscribe({
+          next: (data) => {
+            this.phrase = data.phrase;
+          },
+          error: (response: { status: number, statusText: string }) => {
+            this.pageError = `${response.status} ${response.statusText}`;
+          }
         });
     });
   }
@@ -90,8 +100,13 @@ export class LessonComponent {
           this.isSubmitting = false;
         })
       )
-      .subscribe((value: any) => {
-        this.feedback.next(value);
+      .subscribe({
+        next: (value: any) => {
+          this.feedback.next(value);
+        },
+        error: () => {
+          this.snackBar.open('We\'re with troble to send your answer. Please, try again.', 'Ok');
+        },
       });
   }
 
