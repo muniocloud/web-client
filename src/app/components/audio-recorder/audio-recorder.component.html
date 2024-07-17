@@ -1,0 +1,6 @@
+<button mat-fab aria-label="start recording audio" (click)="isRecording() ? stopRecording() : startRecording()">
+  <mat-icon>mic</mat-icon>
+</button>
+<ng-container *ngIf="isRecording()">
+  <p *ngIf="getRecordingTime() | async as time">{{ time }}</p>
+</ng-container>

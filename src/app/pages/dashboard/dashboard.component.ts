@@ -1,5 +1,5 @@
-import { Component, Inject, ViewChild, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -14,11 +14,14 @@ import { AuthService } from '../../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlider, MatSliderModule } from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../../shared/providers/base-url.provider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { finalize } from 'rxjs';
+import { DEFAULT_SESSION_CONTEXT, DEFAULT_SESSION_LESSONS, DEFAULT_SESSION_LEVEL } from './dashboard.constants';
+import { Session } from './dashboard.types';
+import { FirstNamePipe } from '../../shared/pipes/first-name.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,23 +44,22 @@ import { finalize } from 'rxjs';
     MatSelectModule,
     MatSliderModule,
     MatProgressBar,
+    FirstNamePipe,
 ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  authService = inject(AuthService);
-
-  isLoading = signal(false);
+  isLoading = false;
 
   sessionCreatorForm = new FormGroup({
-    level: new FormControl('1', [
+    level: new FormControl(DEFAULT_SESSION_LEVEL, [
       Validators.required,
     ]),
-    lessons: new FormControl('3', [
+    lessons: new FormControl(DEFAULT_SESSION_LESSONS, [
       Validators.required,
     ]),
-    context: new FormControl('routine', [
+    context: new FormControl(DEFAULT_SESSION_CONTEXT, [
       Validators.required,
     ]),
   });
@@ -68,19 +70,21 @@ export class DashboardComponent {
     private http: HttpClient,
     @Inject(BASE_URL) private baseUrl: string,
     private router: Router,
+    private authService: AuthService,
   ) {}
 
   createSession() {
-    this.isLoading.set(true);
-    this.http.post<{
-      sessionId: number;
-      lessonsIds: number[];
-    }>(`${this.baseUrl}/sessions`, {
+    this.isLoading = true;
+    this.http.post<Session>(`${this.baseUrl}/sessions`, {
       level: +(this.sessionCreatorForm.value.level ?? 1),
       lessons: +(this.sessionCreatorForm.value.lessons ?? 2),
       context: this.sessionCreatorForm.value.context,
     })
-    .pipe(finalize(() => this.isLoading.set(false)))
+    .pipe(
+      finalize(() => {
+        this.isLoading = false;
+      })
+    )
     .subscribe(({ sessionId, lessonsIds } ) => {
       this.router.navigate([`sessions/${sessionId}/lessons/${lessonsIds[0]}`]);
     });
@@ -88,5 +92,9 @@ export class DashboardComponent {
 
   public toggleDrawer() {
     this.drawer.toggle();
+  }
+
+  public getCurrentUser() {
+    return this.authService.getCurrentUser();
   }
 }

@@ -4,60 +4,9 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+  padding: 12px;
 }
 
-:host, .lesson, .answer {
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.lesson {
-  width: 100%;
-  margin-top: 12px;
-
-  main {
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .submitting-progress {
-    margin-bottom: 24px;
-  }
-}
-
-.answer {
-  width: 100%;
-  max-width: 600px;
-
-  &-audio {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-
-    &-track {
-      width: 100%;
-    }
-  }
-
-  .divider {
-    width: 100%;
-    margin: 24px 0;
-  }
-
-  main {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 24px;
-
-    .next-btn {
-      flex: 2;
-    }
-  }
+.submitting-progress-bar {
+  margin-bottom: 12px;
 }

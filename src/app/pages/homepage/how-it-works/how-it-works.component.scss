@@ -1,0 +1,17 @@
+.how-it-works {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &-steps {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .munio-cycle {
+    display: flex;
+    justify-content: center;
+  }
+}
