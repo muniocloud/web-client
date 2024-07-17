@@ -1,0 +1,54 @@
+runtime: nodejs22
+
+instance_class: F2
+
+env_variables:
+  BUCKET_NAME: "example-gcs-bucket"
+
+handlers:
+
+# To enhance security, all http requests are redirected to their equivalent https addresses (secure: always).
+
+# Assets are retrieved directly from their parent folder.
+- url: /assets
+  static_dir: dist/web-client/browser/assets
+  secure: always
+
+# Static files located in the root folder are retrieved directly from there, but their suffixes need to be
+# mapped individually in order to avoid them from being hit by the most general (catch-all) rule.
+- url: /(.*\.css)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.css)
+  secure: always
+
+- url: /(.*\.html)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.html)
+  secure: always
+
+- url: /(.*\.ico)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.ico)
+  secure: always
+
+- url: /(.*\.js)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.js)
+  secure: always
+
+- url: /(.*\.txt)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.txt)
+  secure: always
+
+# Site root.
+- url: /
+  static_files: dist/web-client/browser/index.html
+  upload: dist/web-client/browser/index.html
+  secure: always
+
+# Catch-all rule, responsible from handling Angular application routes (deeplinks).
+- url: /.*
+  static_files: dist/web-client/browser/index.html
+  upload: dist/web-client/browser/index.html
+  secure: always
