@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BASE_URL } from '../shared/providers/base-url.provider';
-import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -16,6 +16,7 @@ type User = {
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   private currentUser: Observable<User | null>;
+  private isLoadingUser: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -26,6 +27,10 @@ export class AuthService {
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
     this.loadUser();
+  }
+
+  get isLoading() {
+    return this.isLoadingUser;
   }
 
   getCurrentUser() {
@@ -49,17 +54,20 @@ export class AuthService {
       return;
     }
 
+    this.isLoadingUser = true;
+
     const userObserver = await this.getUser();
 
     userObserver
+      .pipe(finalize(() => {
+        this.isLoadingUser = false;
+      }))
       .subscribe({
         next: (value) => {
           this.currentUserSubject.next(value);
         },
         error: ({ status, statusText }: { status: number, statusText: string }) => {
-          this.snackBar.open(`HTTP Error, ${status} ${statusText}.`, 'Dismiss', {
-            duration: 5 * 1000,
-          });
+          this.snackBar.open(`HTTP Error, ${status} ${statusText}.`, 'Dismiss');
           if (status === HttpStatusCode.Unauthorized) {
             localStorage.removeItem('user-token');
             this.router.navigate(['/']);

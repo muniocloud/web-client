@@ -1,3 +1,4 @@
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
 <main *ngIf="getCurrentUser() | async as user" class="dashboard">
   <header>
     <h2 class="mat-display-medium primary-heading">Hello {{ user.name | firstName }}!</h2>
@@ -44,7 +45,7 @@
       </div>
 
       <button mat-flat-button type="submit">Start session</button>
-      <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+      <mat-progress-bar mode="indeterminate" *ngIf="isCreatingSession"></mat-progress-bar>
     </form>
   </main>
 </main>

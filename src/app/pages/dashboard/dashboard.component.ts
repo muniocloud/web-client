@@ -22,6 +22,7 @@ import { finalize } from 'rxjs';
 import { DEFAULT_SESSION_CONTEXT, DEFAULT_SESSION_LESSONS, DEFAULT_SESSION_LEVEL } from './dashboard.constants';
 import { Session } from './dashboard.types';
 import { FirstNamePipe } from '../../shared/pipes/first-name.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,12 +46,13 @@ import { FirstNamePipe } from '../../shared/pipes/first-name.pipe';
     MatSliderModule,
     MatProgressBar,
     FirstNamePipe,
+    MatProgressSpinnerModule
 ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  isLoading = false;
+  isCreatingSession = false;
 
   sessionCreatorForm = new FormGroup({
     level: new FormControl(DEFAULT_SESSION_LEVEL, [
@@ -71,10 +73,15 @@ export class DashboardComponent {
     @Inject(BASE_URL) private baseUrl: string,
     private router: Router,
     private authService: AuthService,
-  ) {}
+  ) {
+  }
+
+  get isLoading() {
+    return this.authService.isLoading;
+  }
 
   createSession() {
-    this.isLoading = true;
+    this.isCreatingSession = true;
     this.http.post<Session>(`${this.baseUrl}/sessions`, {
       level: +(this.sessionCreatorForm.value.level ?? 1),
       lessons: +(this.sessionCreatorForm.value.lessons ?? 2),
@@ -82,7 +89,7 @@ export class DashboardComponent {
     })
     .pipe(
       finalize(() => {
-        this.isLoading = false;
+        this.isCreatingSession = false;
       })
     )
     .subscribe(({ sessionId, lessonsIds } ) => {
