@@ -14,7 +14,7 @@ After completing the session, a final report is generated, highlighting areas wh
 
 In addition to the virtual assistant provided by the Gemini, we also have a system for uploading and authenticating users.
 
-This is a public version of the frontend-end application and the backend-end can be found here: [web-client](https://github.com/muniocloud/web-server).
+This is a public version of the frontend-end application and the backend-end can be found here: [web-server](https://github.com/muniocloud/web-server).
 
 ## Installation
 
@@ -37,6 +37,7 @@ serve -s dist/web-client/browser
 
 ## Application Structure Highlights
 
+- Back-end (Integration with AI, Authentication, Uploads, etc): **[web-server](https://github.com/muniocloud/web-server)**
 - Markdown to HTML: Markdown-it
 - Audio Visualization: WaveSurfer
 - Audio Recording: RecordRTC
