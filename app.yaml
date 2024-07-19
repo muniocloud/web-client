@@ -1,5 +1,7 @@
 runtime: nodejs22
 
+instance_class: F1
+
 handlers:
 
 - url: /assets
