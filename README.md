@@ -1,27 +1,53 @@
-# WebClient
+<p align="center">
+  <a href="http://munio.cloud/" target="blank"><img src="docs/munio-logo.svg" width="200" alt="Munio Logo" /></a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+<p align="center">a virtual assistant that helps users improve their conversation skills through voice practice sessions</p>
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Munio is a virtual assistant that functions as a teacher of English to help users improve their conversation skills through voice practice sessions.
 
-## Code scaffolding
+Using the Gemini, Munio generates phrases for a section based on the information provided by the user. After this, the user responds to tasks in the section via audio, where the Gemini performs analyses, identifying improvements in pronunciation and speech to help the user get better each time.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+After completing the session, a final report is generated, highlighting areas where the user can improve their conversation skills.
 
-## Build
+In addition to the virtual assistant provided by the Gemini, we also have a system for uploading and authenticating users.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+This is a public version of the frontend-end application and the backend-end can be found here: [web-client](https://github.com/muniocloud/web-server).
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm ci
+```
 
-## Running end-to-end tests
+## Running the app
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+# development
+npm run start
 
-## Further help
+# production
+npm run build
+# serve the application
+serve -s dist/web-client/browser
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+
+## Application Structure Highlights
+
+- Markdown to HTML: Markdown-it
+- Audio Visualization: WaveSurfer
+- Audio Recording: RecordRTC
+- Framework: Angular 18
+- UI: Angular Material 3
+
+## Stay in touch
+
+- Author - [Gabriel Sena](https://gabrielsena.dev)
+- Website - [https://munio.cloud](https://munio.cloud/)
+
+## License
+
+[MIT licensed](LICENSE).
