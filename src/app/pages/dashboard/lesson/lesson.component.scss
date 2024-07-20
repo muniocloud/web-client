@@ -10,3 +10,19 @@
 .submitting-progress-bar {
   margin-bottom: 12px;
 }
+
+.session-progress {
+  margin: 8px 0;
+}
+
+.lesson-container {
+  width: 500px;
+
+  @media (max-width: 500px) {
+    width: 400px;
+  }
+
+  @media (max-width: 400px) {
+    width: 300px;
+  }
+}

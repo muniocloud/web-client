@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  .lesson-bar {
+    background-color: mat.get-theme-color($theme, secondary, 20);
+
+    &.answered {
+      background-color: mat.get-theme-color($theme, primary, 35);
+    }
+
+    &.current {
+      background-color: mat.get-theme-color($theme, neutral, 100);
+    }
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

@@ -1,0 +1,8 @@
+@for (lesson of lessonsStatus; track lesson.id) {
+  <a
+    class="lesson-bar"
+    [ngClass]="{ 'current': lesson.id === currentLessonId, 'answered': lesson.answered }"
+    [matTooltip]="getLessonTooltipIndicator(lesson, lesson.id === currentLessonId)"
+    [routerLink]="getLessonRouterLink(lesson.id)"
+  ></a>
+}

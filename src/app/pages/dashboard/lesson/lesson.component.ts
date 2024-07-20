@@ -16,6 +16,8 @@ import { AnswerFeedback, Lesson } from './lesson.types';
 import { LessonResultComponent } from "./lesson-result/lesson-result.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageErrorComponent } from '../../../components/page-error/page-error.component';
+import { SessionProgressComponent } from "../../../components/session-progress/session-progress.component";
+import { LessonStatus } from '../../../shared/types/types';
 @Component({
   selector: 'app-lesson',
   standalone: true,
@@ -31,13 +33,14 @@ import { PageErrorComponent } from '../../../components/page-error/page-error.co
     LessonViewComponent,
     LessonResultComponent,
     PageErrorComponent,
+    SessionProgressComponent
 ],
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.scss',
 })
 export class LessonComponent {
-  private sessionId: number = 0;
-  private lessonId: number = 0;
+  sessionId: number = 0;
+  lessonId: number = 0;
 
   isSubmitting = false;
   isLoading: boolean = false;
@@ -46,6 +49,7 @@ export class LessonComponent {
   phrase: string = '';
   feedback = new BehaviorSubject<AnswerFeedback | null>(null);
   recordedData: RecordedData | null = null;
+  lessonsStatus: LessonStatus[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -70,6 +74,17 @@ export class LessonComponent {
         .subscribe({
           next: (data) => {
             this.phrase = data.phrase;
+          },
+          error: (response: { status: number, statusText: string }) => {
+            this.pageError = `${response.status} ${response.statusText}`;
+          }
+        });
+
+        this.http
+        .get<LessonStatus[]>(`${baseUrl}/sessions/${this.sessionId}/lessons/status`)
+        .subscribe({
+          next: (data) => {
+            this.lessonsStatus = data;
           },
           error: (response: { status: number, statusText: string }) => {
             this.pageError = `${response.status} ${response.statusText}`;

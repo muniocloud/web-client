@@ -3,7 +3,9 @@
 
 <app-page-error *ngIf="pageError" [errorMessage]="pageError" />
 
-<ng-content *ngIf="!isLoading && !pageError">
+<div *ngIf="!isLoading && !pageError" class="lesson-container">
+  <app-session-progress [lessonsStatus]="lessonsStatus" [currentLessonId]="lessonId" [sessionId]="sessionId" class="session-progress" />
+
   <ng-content *ngIf="(feedback | async) as feedback; else lessonBlock">
     <app-lesson-result [feedback]="feedback" [phrase]="phrase" [recordedData]="recordedData!" (onContinue)="nextLesson()" (onRetry)="retryLesson()"/>
   </ng-content>
@@ -11,4 +13,4 @@
   <ng-template #lessonBlock>
     <app-lesson-view (onRecordAudio)="answerLesson($event)" [phrase]="phrase" />
   </ng-template>
-</ng-content>
+</div>

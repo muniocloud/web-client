@@ -8,7 +8,15 @@
 }
 
 .session-result {
-  max-width: 600px;
+  width: 500px;
+
+  @media (max-width: 500px) {
+    width: 400px;
+  }
+
+  @media (max-width: 400px) {
+    width: 300px;
+  }
 
   .full-btn {
     width: 100%;

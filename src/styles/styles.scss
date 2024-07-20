@@ -6,6 +6,7 @@
 @use '../app/components/feature-card/feature-card-theme' as feature-card-component;
 @use '../app/components/avatar/avatar-theme' as avatar-component;
 @use './general-theme' as general;
+@use '../app/components//session-progress/session-progress-theme' as session-progress-component;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -22,6 +23,7 @@
   @include feature-card-component.theme(theme-system.$dark-theme);
   @include avatar-component.theme(theme-system.$dark-theme);
   @include general.theme(theme-system.$dark-theme);
+  @include session-progress-component.theme(theme-system.$dark-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

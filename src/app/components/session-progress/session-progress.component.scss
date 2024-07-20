@@ -1,0 +1,12 @@
+:host {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+
+  .lesson-bar {
+    flex: 1;
+    min-height: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
