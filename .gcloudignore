@@ -1,8 +1,8 @@
-/node_modules/
-/src/
-/.angular/
-/.vscode/
-/public/
+node_modules/
+src/
+.angular/
+.vscode/
+public/
 .editorconfig
 .gitignore
 angular.json
