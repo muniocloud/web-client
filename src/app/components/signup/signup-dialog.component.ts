@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { sameFieldValue } from '../../shared/validators/same-field-value.validator';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { SNACKBAR_DURATION_SIGNUP_INFO } from './signup.constants';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SamePasswordStateMatcher } from '../../shared/matcher/same-password.matcher';
 
 @Component({
   selector: 'app-signup-dialog',
@@ -13,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './signup-dialog.component.scss',
 })
 export class SignUpDialogComponent {
+  samePasswordMatcher = new SamePasswordStateMatcher();
+
   signUpForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -27,9 +30,9 @@ export class SignUpDialogComponent {
       Validators.minLength(8),
     ]),
     confirmPassword: new FormControl('', [
-      sameFieldValue('password'),
+      Validators.required,
     ]),
-  });
+  }, [sameFieldValue('password', 'confirmPassword', 'samePassword')]);
 
   isLoading = false;
 
@@ -110,11 +113,15 @@ export class SignUpDialogComponent {
   }
 
   getConfirmPasswordError() {
-    if (!this.confirmPassword?.invalid) {
+    if (!this.confirmPassword?.invalid && !this.signUpForm.hasError('samePassword')) {
       return null;
     }
 
-    if (this.confirmPassword.hasError('sameFieldValue')) {
+    if (this.confirmPassword!.hasError('required')) {
+      return 'Password confirmation is required.';
+    }
+
+    if (this.signUpForm.hasError('samePassword')) {
       return 'Password confirmation doesn\'t match.';
     }
 

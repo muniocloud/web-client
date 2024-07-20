@@ -8,25 +8,25 @@
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput placeholder="Gabriel" type="text" required name="name" formControlName="name" />
-      <mat-error *ngIf="name?.invalid">{{ getNameError() }}</mat-error>
+      <mat-error>{{ getNameError() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>E-mail</mat-label>
       <input matInput placeholder="gabriel@gmail.com" type="email" required name="email" formControlName="email" />
-      <mat-error *ngIf="email?.invalid">{{ getEmailError() }}</mat-error>
+      <mat-error>{{ getEmailError() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput placeholder="12345678" type="password" minlength="8" required name="password" formControlName="password" />
-      <mat-error *ngIf="password?.invalid">{{ getPasswordError() }}</mat-error>
+      <mat-error>{{ getPasswordError() }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Confirm Password</mat-label>
-      <input matInput placeholder="12345678" type="password" required name="confirmPassword" formControlName="confirmPassword" />
-      <mat-error *ngIf="confirmPassword?.invalid">{{ getConfirmPasswordError() }}</mat-error>
+      <input matInput [errorStateMatcher]="samePasswordMatcher" placeholder="12345678" type="password" name="confirmPassword" formControlName="confirmPassword" />
+      <mat-error >{{ getConfirmPasswordError() }}</mat-error>
     </mat-form-field>
     <p class="auth-dialog-form-error" *ngIf="requestError">{{ requestError }}</p>
   </form>

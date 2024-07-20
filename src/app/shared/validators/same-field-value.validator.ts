@@ -1,10 +1,10 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function sameFieldValue(field: string): ValidatorFn {
+export function sameFieldValue(fieldA: string, fieldB: string, property: string = 'sameFieldValue'): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const fieldValue = control.parent?.get(field)?.value;
-    const value = control.value;
-    const isInvalid = fieldValue !== value;
-    return isInvalid ? { sameFieldValue: isInvalid } : null;
+    const fieldAValue = control.get(fieldA)?.value;
+    const fieldBValue = control.get(fieldB)?.value;
+    const isInvalid = fieldAValue !== fieldBValue;
+    return isInvalid ? { [property]: isInvalid } : null;
   };
 };
