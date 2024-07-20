@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BASE_URL } from '../../../shared/providers/base-url.provider';
+import { BASE_URL } from '@shared/providers/base-url.provider';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import markdownit from 'markdown-it'
 import { SessionResult } from './session-result.types';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PageErrorComponent } from "../../../components/page-error/page-error.component";
-import { getTitle } from '../../../shared/utils/feedback-title';
+import { PageErrorComponent } from "@components/page-error/page-error.component";
+import { getTitle } from '@shared/utils/feedback-title';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FeatureCardComponent } from '../../../components/feature-card/feature-card.component';
+import { FeatureCardComponent } from '@components/feature-card/feature-card.component';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({

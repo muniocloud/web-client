@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { LogoComponent } from '../../components/logo/logo.component';
+import { LogoComponent } from '@components/logo/logo.component';
 
 @NgModule({
   imports: [

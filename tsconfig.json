@@ -18,6 +18,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@components/*": ["src/app/components/*"],
+      "@pages/*": ["src/app/pages/*"],
+    },
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",

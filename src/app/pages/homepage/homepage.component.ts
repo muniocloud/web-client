@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FeatureCardComponent } from '../../components/feature-card/feature-card.component';
+import { FeatureCardComponent } from '@components/feature-card/feature-card.component';
 import { MatIcon } from '@angular/material/icon';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 
 @Component({

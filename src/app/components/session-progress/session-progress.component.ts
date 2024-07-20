@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LessonStatus } from '../../shared/types/types';
+import { LessonStatus } from '@shared/types/types';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';

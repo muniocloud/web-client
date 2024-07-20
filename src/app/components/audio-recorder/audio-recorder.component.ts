@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AudioRecorderService } from '../../shared/services/audio-recorder.service';
+import { AudioRecorderService } from '@shared/services/audio-recorder.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

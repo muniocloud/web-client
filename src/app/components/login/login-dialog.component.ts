@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '@app/auth/auth.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SNACKBAR_DURATION_LOGIN_INFO } from './login.constants';

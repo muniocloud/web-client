@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageErrorComponent } from '../../components/page-error/page-error.component';
+import { PageErrorComponent } from '@components/page-error/page-error.component';
 
 @Component({
   selector: 'app-not-found',

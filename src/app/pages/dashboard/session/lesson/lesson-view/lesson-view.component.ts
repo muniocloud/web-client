@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild, output } from '@angular/core';
-import { AudioRecorderComponent } from '../../../../components/audio-recorder/audio-recorder.component';
-import { RecordedData } from '../../../../shared/services/audio-recorder.types';
+import { AudioRecorderComponent } from '@components/audio-recorder/audio-recorder.component';
+import { RecordedData } from '@shared/services/audio-recorder.types';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,12 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { sameFieldValue } from '../../shared/validators/same-field-value.validator';
+import { sameFieldValue } from '@shared/validators/same-field-value.validator';
 import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '@app/auth/auth.service';
 import { SNACKBAR_DURATION_SIGNUP_INFO } from './signup.constants';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SamePasswordStateMatcher } from '../../shared/matcher/same-password.matcher';
+import { SamePasswordStateMatcher } from '@shared/matcher/same-password.matcher';
 
 @Component({
   selector: 'app-signup-dialog',

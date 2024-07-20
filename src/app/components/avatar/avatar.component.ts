@@ -1,5 +1,5 @@
 import { Component, Input, computed } from '@angular/core';
-import { FirstLetterPipe } from '../../shared/pipes/first-letter.pipe';
+import { FirstLetterPipe } from '@shared/pipes/first-letter.pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({

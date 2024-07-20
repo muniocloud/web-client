@@ -2,22 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
-import { BASE_URL } from '../../../shared/providers/base-url.provider';
+import { BASE_URL } from '@shared/providers/base-url.provider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDivider } from '@angular/material/divider';
-import { AudioRecorderComponent } from "../../../components/audio-recorder/audio-recorder.component";
+import { AudioRecorderComponent } from "@components/audio-recorder/audio-recorder.component";
 import { LessonViewComponent } from "./lesson-view/lesson-view.component";
-import { RecordedData } from '../../../shared/services/audio-recorder.types';
+import { RecordedData } from '@shared/services/audio-recorder.types';
 import { AnswerFeedback, Lesson } from './lesson.types';
 import { LessonResultComponent } from "./lesson-result/lesson-result.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PageErrorComponent } from '../../../components/page-error/page-error.component';
-import { SessionProgressComponent } from "../../../components/session-progress/session-progress.component";
-import { LessonStatus } from '../../../shared/types/types';
+import { PageErrorComponent } from '@components/page-error/page-error.component';
+import { SessionProgressComponent } from "@components/session-progress/session-progress.component";
+import { LessonStatus } from '@shared/types/types';
 @Component({
   selector: 'app-lesson',
   standalone: true,
