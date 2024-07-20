@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageErrorComponent } from '@components/page-error/page-error.component';
 import { SessionProgressComponent } from "@components/session-progress/session-progress.component";
 import { LessonStatus } from '@shared/types/types';
+import { AudioRecorderService } from '@src/app/shared/services/audio-recorder.service';
 @Component({
   selector: 'app-lesson',
   standalone: true,
@@ -56,7 +57,8 @@ export class LessonComponent {
     private router: Router,
     private http: HttpClient,
     @Inject(BASE_URL) private baseUrl: string,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly audioRecorderService: AudioRecorderService,
   ) {
     this.isLoading = true;
 
@@ -91,6 +93,10 @@ export class LessonComponent {
           }
         });
     });
+  }
+
+  isRecording(): boolean {
+    return this.audioRecorderService.isRecording();
   }
 
   answerLesson(data: RecordedData) {

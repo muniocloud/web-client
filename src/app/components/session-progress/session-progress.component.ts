@@ -15,6 +15,7 @@ export class SessionProgressComponent {
   @Input({ required: true }) lessonsStatus: LessonStatus[] = [];
   @Input({ required: true }) currentLessonId!: number;
   @Input({ required: true }) sessionId!: number;
+  @Input({ required: true }) isRecording!: boolean;
 
 
   getLessonTooltipIndicator(lessonStatus: LessonStatus, isCurrent: boolean) {
