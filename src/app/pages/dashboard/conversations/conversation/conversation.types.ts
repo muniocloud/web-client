@@ -1,0 +1,15 @@
+export type ConversationStatus = 'created' | 'started' | 'finished';
+
+export type ConversationMessage = {
+  id: number;
+  message: string;
+  isUser: boolean;
+  audioUrl: string | null;
+};
+
+export type Conversation = {
+  id: number;
+  title: string;
+  status: ConversationStatus;
+  messages?: ConversationMessage[];
+};

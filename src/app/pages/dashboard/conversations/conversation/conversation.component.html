@@ -1,0 +1,14 @@
+<mat-progress-spinner mode="indeterminate" *ngIf="isLoading" />
+
+<ng-container *ngIf="(conversation | async) as conversationData">
+  <app-dashboard-page-title [title]="conversationData.title" />
+  <div *ngIf="(completedMessages | async) as completedMessagesData" class="chat">
+    <app-audio-chat-message *ngFor="let message of completedMessagesData" [audioUrl]="message.audioUrl!"
+      [isOwner]="message.isUser" [author]="getMessageAuthorData(message.isUser)" />
+  </div>
+  <div *ngIf="(nextUserMessage | async) as nextUserMessageData" class="record-request">
+    <h2 class="mat-title-medium primary-heading">It's your time! Speak the phrase:</h2>
+    <p class="mat-title-large">"{{ nextUserMessageData.message }}"</p>
+    <app-audio-recorder #audioRecorder />
+  </div>
+</ng-container>

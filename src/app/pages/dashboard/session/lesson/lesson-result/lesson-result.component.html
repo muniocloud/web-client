@@ -3,12 +3,7 @@
   <p class="mat-title-large">"{{ phrase }}"</p>
 </header>
 <main>
-  <div class="audio-container">
-    <button mat-icon-button aria-label="play audio" (click)="toggleAudio()">
-      <mat-icon>{{ isPlayingAudio() ? 'pause' : 'play_arrow'}}</mat-icon>
-    </button>
-    <div id="audioviewer"></div>
-  </div>
+  <app-audio-visualizer [audioUrl]="recordedData.url" />
   <p class="mat-body-large">{{ feedback.feedback }}</p>
 </main>
 <footer class="actions">

@@ -3,15 +3,14 @@ import { AnswerFeedback } from '../lesson.types';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { nextTick } from '@shared/utils/next-tick';
-import WaveSurfer from 'wavesurfer.js';
-import { AudioViewerService } from '@shared/services/audio-viewer.service';
 import { RecordedData } from '@shared/services/audio-recorder.types';
 import { getTitle } from '@shared/utils/feedback-title';
+import { AudioVisualizerComponent } from '@src/app/components/audio-visualizer/audio-visualizer.component';
 
 @Component({
   selector: 'app-lesson-result',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, AudioVisualizerComponent],
   templateUrl: './lesson-result.component.html',
   styleUrl: './lesson-result.component.scss'
 })
@@ -25,21 +24,10 @@ export class LessonResultComponent {
   onRetry = output();
   onContinue = output();
 
-  private audioViewerInstance: WaveSurfer | null = null;
-
-  constructor(private readonly audioViewer: AudioViewerService) {
+  constructor() {
     nextTick(() => {
-      this.audioViewerInstance = this.audioViewer.createAudioViewerInstance('#audioviewer', this.recordedData.url);
       this.feedbackTitle = getTitle(this.feedback.rating);
     });
-  }
-
-  toggleAudio() {
-    this.audioViewerInstance?.playPause();
-  }
-
-  isPlayingAudio() {
-    return this.audioViewerInstance?.isPlaying();
   }
 
   retryLesson() {

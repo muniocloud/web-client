@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  app-audio-visualizer {
+    flex: 0.5;
+  }
+
+  &.is-owner {
+    justify-content: flex-end;
+
+    app-avatar {
+      order: 2;
+    }
+
+    app-audio-visualizer {
+      order: 1;
+    }
+  }
+}

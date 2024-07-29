@@ -4,11 +4,7 @@ import { BASE_URL } from '../shared/providers/base-url.provider';
 import { BehaviorSubject, catchError, finalize, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
-type User = {
-  name: string;
-  avatarUrl: string | null;
-};
+import { User } from './auth.types';
 
 @Injectable({
   providedIn: 'root',
