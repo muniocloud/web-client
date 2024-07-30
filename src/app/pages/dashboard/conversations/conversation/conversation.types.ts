@@ -11,5 +11,7 @@ export type Conversation = {
   id: number;
   title: string;
   status: ConversationStatus;
+  feedback: string | null;
+  rating: number | null;
   messages?: ConversationMessage[];
 };

@@ -9,7 +9,7 @@ export const dashboardRoutes: Routes = [
     canMatch: [authGuard],
     children: [
       {
-        path: '',
+        path: 'sessions',
         loadComponent: () => import('./session/session-creator/session-creator.component').then(c => c.SessionCreatorComponent),
         canMatch: [authGuard],
       },

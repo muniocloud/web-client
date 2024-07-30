@@ -11,7 +11,6 @@ export class WsService {
   }
 
   createSocket(endpoint: string) {
-    console.log('call create');
     const token = this.authService.getUserToken();
 
     if (!token) {

@@ -5,11 +5,11 @@ import { BASE_URL } from '@shared/providers/base-url.provider';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import markdownit from 'markdown-it'
 import { SessionResult } from './session-result.types';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PageErrorComponent } from "@components/page-error/page-error.component";
 import { getTitle } from '@shared/utils/feedback-title';
+import { MarkdownService } from '@src/app/markdown/markdown.service';
 
 
 @Component({
@@ -31,6 +31,7 @@ export class SessionResultComponent {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
+    private markdownService: MarkdownService,
     @Inject(BASE_URL) private baseUrl: string
   ) {
     this.isLoading = true;
@@ -46,7 +47,7 @@ export class SessionResultComponent {
         .subscribe({
           next: (data) => {
             this.sessionResult.next(data);
-            this.sessionFeedbackContent = markdownit().render(data.feedback);
+            this.sessionFeedbackContent = this.markdownService.convertTextToHTML(data.feedback);
             this.sessionFeedbackTitle = getTitle(data.rating);
           },
           error: (response: { status: number, statusText: string }) => {

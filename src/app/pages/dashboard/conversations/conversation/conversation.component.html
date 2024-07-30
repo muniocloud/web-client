@@ -1,14 +1,35 @@
-<mat-progress-spinner mode="indeterminate" *ngIf="isLoading" />
+<div class="is-loading-conversation" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"/>
+</div>
 
 <ng-container *ngIf="(conversation | async) as conversationData">
-  <app-dashboard-page-title [title]="conversationData.title" />
-  <div *ngIf="(completedMessages | async) as completedMessagesData" class="chat">
-    <app-audio-chat-message *ngFor="let message of completedMessagesData" [audioUrl]="message.audioUrl!"
-      [isOwner]="message.isUser" [author]="getMessageAuthorData(message.isUser)" />
-  </div>
-  <div *ngIf="(nextUserMessage | async) as nextUserMessageData" class="record-request">
-    <h2 class="mat-title-medium primary-heading">It's your time! Speak the phrase:</h2>
-    <p class="mat-title-large">"{{ nextUserMessageData.message }}"</p>
-    <app-audio-recorder #audioRecorder />
-  </div>
+  <header>
+    <app-dashboard-page-title [title]="conversationData.title" />
+    <p class="mat-body-large">Follow the instructions and dive in!</p>
+    <mat-divider class="conversation-divider" />
+  </header>
+  <main class="conversation">
+    <section *ngIf="(completedMessages | async) as completedMessagesData" class="conversation-chat">
+      <app-audio-chat-message *ngFor="let message of completedMessagesData" [audioUrl]="message.audioUrl!"
+        [isOwner]="message.isUser" [author]="getMessageAuthorData(message.isUser)" />
+    </section>
+    <mat-progress-bar *ngIf="isProcessingMessage" mode="indeterminate"/>
+    <section *ngIf="!isProcessingMessage && (requestedUserMessage | async) as requestedUserMessageData" class="conversation-requested-message">
+      <h2 class="mat-title-medium primary-heading">It's your time! Speak the phrase:</h2>
+      <p class="mat-title-large">"{{ requestedUserMessageData.message }}"</p>
+      <app-audio-recorder #audioRecorder (onReady)="subscribeAudioRecorder()" />
+    </section>
+    <mat-divider class="conversation-divider" *ngIf="conversationData.feedback"/>
+    <div class="conversation-feedback-loading" *ngIf="isProcessingConversation">
+      <mat-progress-spinner mode="indeterminate"/>
+    </div>
+    <section *ngIf="conversationData.feedback" class="conversation-feedback">
+      <small>Rating {{ conversationData.rating }} of 10.</small>
+      <h2 class="mat-title-large">Conversation review</h2>
+      <p [innerHTML]="feedbackHTMLContent"></p>
+    </section>
+  </main>
+  <footer *ngIf="conversationData.feedback">
+    <button mat-flat-button class="full-btn">Home</button>
+  </footer>
 </ng-container>
