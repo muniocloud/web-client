@@ -20,3 +20,7 @@ export type ConversationFeedback = {
   feedback: string;
   rating: number;
 }
+
+export type CreateConversationResponse = {
+  conversationId: number;
+}

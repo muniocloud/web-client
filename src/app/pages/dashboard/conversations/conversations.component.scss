@@ -1,0 +1,29 @@
+:host {
+  width: calc(100% - 24px);
+  max-width: 648px;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.conversations-create-form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+
+  &-fields {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    > * {
+      min-width: 100%;
+    }
+  }
+  
+  &-submit {
+    margin: 12px 0;
+  }
+}
