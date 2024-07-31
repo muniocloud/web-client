@@ -15,3 +15,8 @@ export type Conversation = {
   rating: number | null;
   messages?: ConversationMessage[];
 };
+
+export type ConversationFeedback = {
+  feedback: string;
+  rating: number;
+}

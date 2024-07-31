@@ -2,7 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WsService } from '@src/app/ws/ws.service';
 import { Socket } from 'socket.io-client';
-import { Conversation, ConversationMessage } from './conversation.types';
+import { Conversation, ConversationFeedback, ConversationMessage } from './conversation.types';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '@src/app/shared/providers/base-url.provider';
 import { BehaviorSubject, finalize, map, Observable, Subject, Subscription } from 'rxjs';
@@ -18,8 +18,9 @@ import { AudioRecorderComponent } from "../../../../components/audio-recorder/au
 import { environment } from '@src/environments/environment';
 import { MarkdownService } from '@src/app/markdown/markdown.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { CONVERSATION_STATUS } from './conversation.constants';
+import { WS_CONVERSATION_STATUS } from './conversation.constants';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { isNullOrUndefined } from '@src/app/shared/utils/is-null-or-undefined';
 
 @Component({
   selector: 'app-conversation',
@@ -48,6 +49,7 @@ export class ConversationComponent {
   private pageError: string = '';
 
   conversation: Subject<Conversation> = new Subject<Conversation>();
+  conversationFeedback: BehaviorSubject<ConversationFeedback | null> = new BehaviorSubject<ConversationFeedback | null>(null);
   conversationMessages: BehaviorSubject<ConversationMessage[]> = new BehaviorSubject<ConversationMessage[]>([]);
   completedMessages: Observable<ConversationMessage[]> | null = null;
   requestedUserMessage: BehaviorSubject<ConversationMessage | null> = new BehaviorSubject<ConversationMessage | null>(null);
@@ -64,6 +66,7 @@ export class ConversationComponent {
     private markdownService: MarkdownService,
     @Inject(BASE_URL) private baseUrl: string,
   ) {
+    this.subscribeConversationFeedback();
     this.subscribeCurrentUser();
     this.subscribeConversation();
     this.subscribeConversationId();
@@ -76,8 +79,10 @@ export class ConversationComponent {
       const buffer = await data.data.arrayBuffer();
       this.socket?.emit('send', {
         conversationId: this.conversationId.value,
+      }, {
+        buffer,
         mimetype: data.data.type,
-      }, buffer);
+      });
     });
   }
 
@@ -99,20 +104,20 @@ export class ConversationComponent {
       this.requestedUserMessage.next(data);
     });
 
-    this.socket.on('status', (code: number, [data]: [Conversation]) => {
+    this.socket.on('status', (code: number, [data]: [ConversationFeedback]) => {
       switch(code) {
-        case CONVERSATION_STATUS.STARTED:
+        case WS_CONVERSATION_STATUS.STARTED:
           this.isProcessingMessage = true;
           break;
-        case CONVERSATION_STATUS.FINISHED:
+        case WS_CONVERSATION_STATUS.FINISHED:
           this.requestedUserMessage.next(null);
-          this.conversation.next(data);
+          this.conversationFeedback.next(data);
           this.isProcessingConversation = false;
           break;
-        case CONVERSATION_STATUS.FINISHING:
+        case WS_CONVERSATION_STATUS.FINISHING:
           this.isProcessingConversation = true;
           break;
-        case CONVERSATION_STATUS.PROCESSING_MESSAGE:
+        case WS_CONVERSATION_STATUS.PROCESSING_MESSAGE:
           this.isProcessingMessage = true;
           break;
         default:
@@ -127,11 +132,23 @@ export class ConversationComponent {
     });
   }
 
+  subscribeConversationFeedback() {
+    this.conversationFeedback.subscribe((data) => {
+      if (data) {
+        this.feedbackHTMLContent = this.markdownService.convertTextToHTML(data.feedback);
+      }
+    });
+  }
+
   subscribeConversation() {
     this.conversation.subscribe((data) => {
       this.conversationMessages.next(data?.messages ?? []);
-      if (data?.feedback) {
-        this.feedbackHTMLContent = this.markdownService.convertTextToHTML(data.feedback);
+
+      if (data.feedback && !isNullOrUndefined(data.rating)) {
+        this.conversationFeedback.next({
+          feedback: data.feedback,
+          rating: data.rating!,
+        });
       }
     });
 
@@ -145,6 +162,10 @@ export class ConversationComponent {
 
   subscribeConversationId() {
     this.conversationId.subscribe((id) => {
+      if (id === 0) {
+        return;
+      }
+
       this.isLoading = true;
       this.setupSocket(id);
       this.http

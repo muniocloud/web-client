@@ -19,17 +19,19 @@
       <p class="mat-title-large">"{{ requestedUserMessageData.message }}"</p>
       <app-audio-recorder #audioRecorder (onReady)="subscribeAudioRecorder()" />
     </section>
-    <mat-divider class="conversation-divider" *ngIf="conversationData.feedback"/>
     <div class="conversation-feedback-loading" *ngIf="isProcessingConversation">
       <mat-progress-spinner mode="indeterminate"/>
     </div>
-    <section *ngIf="conversationData.feedback" class="conversation-feedback">
-      <small>Rating {{ conversationData.rating }} of 10.</small>
-      <h2 class="mat-title-large">Conversation review</h2>
-      <p [innerHTML]="feedbackHTMLContent"></p>
-    </section>
+    <ng-container *ngIf="(conversationFeedback | async) as feedback">
+      <mat-divider class="conversation-divider" *ngIf="feedback.feedback"/>
+      <section class="conversation-feedback">
+        <small>Rating {{ feedback.rating }} of 10.</small>
+        <h2 class="mat-title-large">Conversation review</h2>
+        <p [innerHTML]="feedbackHTMLContent"></p>
+      </section>
+      <footer *ngIf="feedback.feedback">
+        <button mat-flat-button class="full-btn">Home</button>
+      </footer>
+    </ng-container>
   </main>
-  <footer *ngIf="conversationData.feedback">
-    <button mat-flat-button class="full-btn">Home</button>
-  </footer>
 </ng-container>
