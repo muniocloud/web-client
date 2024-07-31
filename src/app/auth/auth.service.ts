@@ -11,7 +11,6 @@ import { User } from './auth.types';
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
-  private currentUser: Observable<User | null>;
   private isLoadingUser: boolean = false;
 
   constructor(
@@ -21,7 +20,6 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) {
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
-    this.currentUser = this.currentUserSubject.asObservable();
     this.loadUser();
   }
 
@@ -29,8 +27,8 @@ export class AuthService {
     return this.isLoadingUser;
   }
 
-  getCurrentUser() {
-    return this.currentUser;
+  get currentUser() {
+    return this.currentUserSubject.value;
   }
 
   isAuthenticated() {

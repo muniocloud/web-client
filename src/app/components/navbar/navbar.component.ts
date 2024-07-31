@@ -40,7 +40,7 @@ export class NavbarComponent {
   }
 
   getCurrentUser() {
-    return this.authService.getCurrentUser();
+    return this.authService.currentUser;
   }
 
   logout() {

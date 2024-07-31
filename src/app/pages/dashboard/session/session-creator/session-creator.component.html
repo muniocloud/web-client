@@ -1,5 +1,5 @@
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
-<main *ngIf="getCurrentUser() | async as user" class="dashboard">
+<main *ngIf="getCurrentUser() as user" class="dashboard">
   <header>
     <h2 class="mat-display-medium primary-heading">Hello {{ user.name | firstName }}!</h2>
     <p class="mat-title-small">Let's start a new lesson?</p>

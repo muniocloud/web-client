@@ -7,7 +7,7 @@
       <app-login-button/>
       <app-signup-button/>
     } @else {
-      <div *ngIf="getCurrentUser() | async as user" class="user" cdkFocusInitial>
+      <div *ngIf="getCurrentUser() as user" class="user" cdkFocusInitial>
         <app-avatar [name]="user.name" [imageUrl]="user.avatarUrl" />
         <span class="mat-label-large">{{ user.name }}</span>
       </div>

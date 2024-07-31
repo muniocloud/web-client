@@ -2,9 +2,11 @@
   <mat-progress-spinner mode="indeterminate"/>
 </div>
 
+<app-page-error title="Sorry =(" [errorMessage]="pageError" *ngIf="pageError" class="conversation-error"/>
+
 <ng-container *ngIf="(conversation | async) as conversationData">
   <header>
-    <app-dashboard-page-title [title]="conversationData.title" />
+    <app-dashboard-page-title [title]="conversationData.title" (onClickBack)="goHome()"/>
     <p class="mat-body-large">Follow the instructions and dive in!</p>
     <mat-divider class="conversation-divider" />
   </header>
@@ -30,7 +32,7 @@
         <p [innerHTML]="feedbackHTMLContent"></p>
       </section>
       <footer *ngIf="feedback.feedback">
-        <button mat-flat-button class="full-btn">Home</button>
+        <button mat-flat-button class="full-btn" (click)="goHome()">Home</button>
       </footer>
     </ng-container>
   </main>

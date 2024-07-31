@@ -19,6 +19,16 @@
     flex-direction: column;
     gap: 12px;
 
+    &-error {
+      margin: auto;
+    }
+
+    &-chat {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     &-feedback {
       h2 {
         font-weight: bold;

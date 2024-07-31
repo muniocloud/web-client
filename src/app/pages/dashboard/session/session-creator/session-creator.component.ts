@@ -96,6 +96,6 @@ export class SessionCreatorComponent {
   }
 
   public getCurrentUser() {
-    return this.authService.getCurrentUser();
+    return this.authService.currentUser;
   }
 }
