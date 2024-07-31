@@ -2,7 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WsService } from '@src/app/ws/ws.service';
 import { Socket } from 'socket.io-client';
-import { Conversation, ConversationFeedback, ConversationMessage } from '../conversations.types';
+import { Conversation, ConversationFeedback, ConversationMessage } from '../conversations-creator/conversations-creator.types';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { BASE_URL } from '@src/app/shared/providers/base-url.provider';
 import { BehaviorSubject, finalize, map, Observable, Subject, Subscription } from 'rxjs';
