@@ -1,0 +1,29 @@
+@if (!feedback.value) {
+<header>
+  <h2 class="mat-title-medium primary-heading">Speak the phrase:</h2>
+  <p class="mat-title-large">"{{ lesson.phrase }}"</p>
+  <p class="mat-body-medium">Click on button bellow and start speaking. Click again to stop recording.</p>
+</header>
+<main>
+  <app-audio-recorder #audioRecorder (onReady)="subscribeAudioRecorder()" />
+</main>
+}
+
+<div class="lesson-submitting-loading" *ngIf="isSubmitting">
+  <mat-progress-bar mode="indeterminate"/>
+</div>
+
+<ng-content *ngIf="(feedback | async) as feedback">
+  <header>
+    <p class="mat-title-large">"{{ lesson.phrase }}"</p>
+  </header>
+  <main>
+    <app-audio-visualizer [audioUrl]="recordedData!.url" />
+    <p class="mat-body-large">{{ feedback.feedback }}</p>
+  </main>
+  <footer class="lesson-actions">
+    <button mat-button (click)="retryLesson()">Retry</button>
+    <button mat-flat-button (click)="nextLesson()" class="continue-btn">{{ feedback.nextLessonId ? 'Next lesson' :
+      'Finish session'}}</button>
+  </footer>
+</ng-content>

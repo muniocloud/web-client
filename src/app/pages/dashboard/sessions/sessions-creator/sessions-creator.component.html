@@ -1,13 +1,13 @@
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
-<main *ngIf="getCurrentUser() as user" class="dashboard">
+<ng-content *ngIf="currentUser">
   <header>
-    <h2 class="mat-display-medium primary-heading">Hello {{ user.name | firstName }}!</h2>
+    <h2 class="mat-display-medium primary-heading">Hello {{ currentUser.name | firstName }}!</h2>
     <p class="mat-title-small">Let's start a new lesson?</p>
-    <p class="mat-body-medium">Take speaking lessons and understand what to improve with AI analysis by Gemini.</p>
+    <p class="mat-body-medium">Practice speaking and pronunciation through short lessons with phrases in English to improve your skills.</p>
   </header>
   <main>
     <form class="session-creator-form" [formGroup]="sessionCreatorForm" (ngSubmit)="createSession()">
-
+      <h2 class="mat-title-medium">Start a new session</h2>
       <div class="session-creator-form-main-inputs">
 
         <mat-form-field appearance="outline">
@@ -48,4 +48,4 @@
       <mat-progress-bar mode="indeterminate" *ngIf="isCreatingSession"></mat-progress-bar>
     </form>
   </main>
-</main>
+</ng-content>

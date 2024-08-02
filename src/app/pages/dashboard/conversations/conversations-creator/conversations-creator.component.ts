@@ -98,7 +98,7 @@ export class ConversationsCreatorComponent {
         this.router.navigate([`conversations/${conversationId}`]);
       },
       error: (response: { status: number, statusText: string }) => {
-        this.snackBar.open(`Error: ${response.status} ${response.statusText}`, 'Dismiss', {
+        this.snackBar.open(`Error: ${response.status} ${response.statusText}. Try again.`, 'Dismiss', {
           duration: 10000,
         });
       },

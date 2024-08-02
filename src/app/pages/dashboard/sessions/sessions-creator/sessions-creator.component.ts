@@ -19,13 +19,14 @@ import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '@shared/providers/base-url.provider';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { finalize } from 'rxjs';
-import { DEFAULT_SESSION_CONTEXT, DEFAULT_SESSION_LESSONS, DEFAULT_SESSION_LEVEL } from './session-creator.constants';
-import { Session } from './session-creator.types';
+import { DEFAULT_SESSION_CONTEXT, DEFAULT_SESSION_LESSONS, DEFAULT_SESSION_LEVEL } from './sessions-creator.constants';
+import { Session } from './sessions-creator.types';
 import { FirstNamePipe } from '@shared/pipes/first-name.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-session-creator',
+  selector: 'app-sessions-creator',
   standalone: true,
   imports: [
     MatToolbarModule,
@@ -48,8 +49,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FirstNamePipe,
     MatProgressSpinnerModule
   ],
-  templateUrl: './session-creator.component.html',
-  styleUrl: './session-creator.component.scss'
+  templateUrl: './sessions-creator.component.html',
+  styleUrl: './sessions-creator.component.scss'
 })
 export class SessionCreatorComponent {
   isCreatingSession = false;
@@ -68,6 +69,7 @@ export class SessionCreatorComponent {
 
   constructor(
     private http: HttpClient,
+    private readonly snackBar: MatSnackBar,
     @Inject(BASE_URL) private baseUrl: string,
     private router: Router,
     private authService: AuthService,
@@ -85,17 +87,24 @@ export class SessionCreatorComponent {
       lessons: +(this.sessionCreatorForm.value.lessons ?? 2),
       context: this.sessionCreatorForm.value.context,
     })
-    .pipe(
-      finalize(() => {
-        this.isCreatingSession = false;
-      })
-    )
-    .subscribe(({ sessionId, lessonsIds } ) => {
-      this.router.navigate([`sessions/${sessionId}/lessons/${lessonsIds[0]}`]);
-    });
+      .pipe(
+        finalize(() => {
+          this.isCreatingSession = false;
+        })
+      )
+      .subscribe({
+        next: ({ sessionId }) => {
+          this.router.navigate([`sessions/${sessionId}`]);
+        },
+        error: (response: { status: number, statusText: string }) => {
+          this.snackBar.open(`Error: ${response.status} ${response.statusText}. Try again.`, 'Dismiss', {
+            duration: 10000,
+          });
+        }
+      });
   }
 
-  public getCurrentUser() {
+  get currentUser() {
     return this.authService.currentUser;
   }
 }
