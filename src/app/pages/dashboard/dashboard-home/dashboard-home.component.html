@@ -1,0 +1,33 @@
+<div class="is-loading">
+  <mat-progress-spinner mode="indeterminate" *ngIf="isLoading"/>
+</div>
+<ng-container *ngIf="currentUser">
+  <header>
+    <h2 class="mat-display-small">Hi {{ currentUser.name | firstName }}! {{getTimeGreeting()}}!</h2>
+    <p>What do you want to do today?</p>
+  </header>
+  <main>
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Pronunciation Practice</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Work on specific phrases with guided exercises and receive feedback to refine your pronunciation</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button routerLink="/sessions">Start now</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Conversations</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Participate in realistic dialogues and get detailed feedback to improve your conversational skills and fluency.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button routerLink="/conversations">Start now</button>
+      </mat-card-actions>
+    </mat-card>
+  </main>
+</ng-container>

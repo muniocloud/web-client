@@ -9,6 +9,11 @@ export const dashboardRoutes: Routes = [
     canMatch: [authGuard],
     children: [
       {
+        path: '',
+        loadComponent: () => import('./dashboard-home/dashboard-home.component').then(c => c.DashboardHomeComponent),
+        canMatch: [authGuard],
+      },
+      {
         path: 'sessions',
         loadComponent: () => import('./sessions/sessions.component').then(c => c.SessionsComponent),
         canMatch: [authGuard],
