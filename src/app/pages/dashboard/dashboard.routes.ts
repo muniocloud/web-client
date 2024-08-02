@@ -10,17 +10,27 @@ export const dashboardRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./session/session-creator/session-creator.component').then(c => c.SessionCreatorComponent),
+        loadComponent: () => import('./dashboard-home/dashboard-home.component').then(c => c.DashboardHomeComponent),
         canMatch: [authGuard],
       },
       {
-        path: 'sessions/:sessionId/lessons/:lessonId',
-        loadComponent: () => import('./session/lesson/lesson.component').then(c => c.LessonComponent),
+        path: 'sessions',
+        loadComponent: () => import('./sessions/sessions.component').then(c => c.SessionsComponent),
         canMatch: [authGuard],
       },
       {
-        path: 'sessions/:sessionId/result',
-        loadComponent: () => import('./session/session-result/session-result.component').then(c => c.SessionResultComponent),
+        path: 'sessions/:sessionId',
+        loadComponent: () => import('./sessions/session/session.component').then(c => c.SessionComponent),
+        canMatch: [authGuard],
+      },
+      {
+        path: 'conversations',
+        loadComponent: () => import('./conversations/conversations.component').then(c => c.ConversationsComponent),
+        canMatch: [authGuard],
+      },
+      {
+        path: 'conversations/:conversationId',
+        loadComponent: () => import('./conversations/conversation/conversation.component').then(c => c.ConversationComponent),
         canMatch: [authGuard],
       },
     ]

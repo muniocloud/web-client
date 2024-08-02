@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { LessonStatus } from '@shared/types/types';
+import { Component, Input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { Lesson } from '@src/app/pages/dashboard/sessions/session/session.types';
 
 @Component({
   selector: 'app-session-progress',
@@ -12,25 +12,27 @@ import { RouterLink } from '@angular/router';
   styleUrl: './session-progress.component.scss'
 })
 export class SessionProgressComponent {
-  @Input({ required: true }) lessonsStatus: LessonStatus[] = [];
+  @Input({ required: true }) lessons: Lesson[] = [];
   @Input({ required: true }) currentLessonId!: number;
   @Input({ required: true }) sessionId!: number;
   @Input({ required: true }) isRecording!: boolean;
 
+  onClickLesson = output<number>();
 
-  getLessonTooltipIndicator(lessonStatus: LessonStatus, isCurrent: boolean) {
+  getLessonTooltipIndicator(lesson: Lesson, isCurrent: boolean) {
     if (isCurrent) {
       return 'You are here';
     }
 
-    if (lessonStatus.answered) {
+    if (lesson.answered) {
       return 'Answered';
     }
 
     return 'Jump to this';
   }
 
-  getLessonRouterLink(lessonId: number) {
+  emitLessonClick(lessonId: number) {
+    this.onClickLesson.emit(lessonId);
     return `/sessions/${this.sessionId}/lessons/${lessonId}`;
   }
 }

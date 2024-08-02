@@ -1,0 +1,53 @@
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+<ng-container *ngIf="currentUser">
+  <header>
+    <h2 class="mat-display-medium primary-heading">Hello {{ currentUser.name | firstName }}!</h2>
+    <p class="mat-title-small">Let's start a new conversation?</p>
+    <p class="mat-body-medium">Practice dialogues in English across different contexts to enhance your conversational skills.</p>
+  </header>
+  <main>
+    <form class="conversations-creator-form" [formGroup]="conversationCreatorForm" (ngSubmit)="createConversation()">
+      <h2 class="mat-title-medium">Start a new conversation</h2>
+      <div class="conversations-creator-form-fields">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Level</mat-label>
+          <mat-select formControlName="level">
+            <mat-option value="1">Beginner</mat-option>
+            <mat-option value="23">Intermediate</mat-option>
+            <mat-option value="3">Advanced</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Duration</mat-label>
+          <mat-select formControlName="duration">
+            <mat-option value="1">Short (3 ~ 5 messages)</mat-option>
+            <mat-option value="2">Medium (6 ~ 10 messages)</mat-option>
+            <mat-option value="3">Long (11 ~ 20 mensagens)</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Context</mat-label>
+          <mat-select formControlName="context">
+            <mat-option value="Routine">Routine</mat-option>
+            <mat-option value="School">School</mat-option>
+            <mat-option value="Hobbies">Hobbies</mat-option>
+            <mat-option value="Cinema">Cinema</mat-option>
+            <mat-option value="Travel">Travel</mat-option>
+            <mat-option value="Work">Work</mat-option>
+            <mat-option value="Shopping">Shopping</mat-option>
+            <mat-option value="Social Life">Social Life</mat-option>
+            <mat-option value="Health & Wellness">Health & Wellness</mat-option>
+            <mat-option value="Family Life">Family Life</mat-option>
+            <mat-option value="Dining Out">Dining Out</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-flat-button type="submit" class="conversations-creator-form-submit">Start conversation</button>
+      <mat-progress-bar mode="indeterminate" *ngIf="isCreatingConversation"></mat-progress-bar>
+    </form>
+  </main>
+</ng-container>

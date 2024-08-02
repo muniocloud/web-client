@@ -4,18 +4,13 @@ import { BASE_URL } from '../shared/providers/base-url.provider';
 import { BehaviorSubject, catchError, finalize, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
-type User = {
-  name: string;
-  avatarUrl: string | null;
-};
+import { User } from './auth.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
-  private currentUser: Observable<User | null>;
   private isLoadingUser: boolean = false;
 
   constructor(
@@ -25,7 +20,6 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) {
     this.currentUserSubject = new BehaviorSubject<User | null>(null);
-    this.currentUser = this.currentUserSubject.asObservable();
     this.loadUser();
   }
 
@@ -33,8 +27,8 @@ export class AuthService {
     return this.isLoadingUser;
   }
 
-  getCurrentUser() {
-    return this.currentUser;
+  get currentUser() {
+    return this.currentUserSubject.value;
   }
 
   isAuthenticated() {

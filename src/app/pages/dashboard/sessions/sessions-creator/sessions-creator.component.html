@@ -1,0 +1,51 @@
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+<ng-content *ngIf="currentUser">
+  <header>
+    <h2 class="mat-display-medium primary-heading">Hello {{ currentUser.name | firstName }}!</h2>
+    <p class="mat-title-small">Let's start a new lesson?</p>
+    <p class="mat-body-medium">Practice speaking and pronunciation through short lessons with phrases in English to improve your skills.</p>
+  </header>
+  <main>
+    <form class="session-creator-form" [formGroup]="sessionCreatorForm" (ngSubmit)="createSession()">
+      <h2 class="mat-title-medium">Start a new session</h2>
+      <div class="session-creator-form-main-inputs">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Level</mat-label>
+          <mat-select formControlName="level">
+            <mat-option value="1">Beginner</mat-option>
+            <mat-option value="2">Intermediate</mat-option>
+            <mat-option value="3">Advanced</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Context</mat-label>
+          <mat-select formControlName="context">
+            <mat-option value="Routine">Routine</mat-option>
+            <mat-option value="School">School</mat-option>
+            <mat-option value="Hobbies">Hobbies</mat-option>
+            <mat-option value="Cinema">Cinema</mat-option>
+            <mat-option value="Travel">Travel</mat-option>
+            <mat-option value="Work">Work</mat-option>
+            <mat-option value="Shopping">Shopping</mat-option>
+            <mat-option value="Social Life">Social Life</mat-option>
+            <mat-option value="Health & Wellness">Health & Wellness</mat-option>
+            <mat-option value="Family Life">Family Life</mat-option>
+            <mat-option value="Dining Out">Dining Out</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-label class="mat-label-large">Lessons</mat-label>
+        <mat-slider min="2" max="10" step="1" showTickMarks discrete class="session-creator-form-lessons-slider">
+          <input matSliderThumb value="2" formControlName="lessons">
+        </mat-slider>
+      </div>
+
+      <button mat-flat-button type="submit">Start session</button>
+      <mat-progress-bar mode="indeterminate" *ngIf="isCreatingSession"></mat-progress-bar>
+    </form>
+  </main>
+</ng-content>

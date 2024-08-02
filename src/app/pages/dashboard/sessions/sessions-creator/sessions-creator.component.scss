@@ -1,0 +1,21 @@
+.session-creator-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  &-main-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between;
+    > * {
+      flex: 1;
+    }
+  }
+
+  &-lessons-slider {
+    width: calc(100% - 32px)
+  }
+}

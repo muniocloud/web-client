@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { AudioRecorderService } from '@shared/services/audio-recorder.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { nextTick } from '@src/app/shared/utils/next-tick';
 
 @Component({
   selector: 'app-audio-recorder',
@@ -12,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './audio-recorder.component.scss'
 })
 export class AudioRecorderComponent {
+  onReady = output();
 
   constructor(
     private audioRecorder: AudioRecorderService,
@@ -36,5 +38,11 @@ export class AudioRecorderComponent {
 
   startRecording() {
     this.audioRecorder.startRecording();
+  }
+
+  ngAfterViewInit() {
+    nextTick(() => {
+      this.onReady.emit();
+    });
   }
 }

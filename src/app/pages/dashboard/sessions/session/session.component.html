@@ -1,0 +1,14 @@
+<div class="loading-session" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"/>
+</div>
+
+<ng-content *ngIf="!isLoading && (session | async) as sessionData">
+  <header>
+    <app-dashboard-page-title [title]="sessionData.title" (onClickBack)="goHome()"/>
+  </header>
+  @if (sessionData.feedback) {
+    <app-session-feedback *ngIf="sessionData.feedback" [feedback]="sessionData.feedback" [rating]="sessionData.rating!"/>
+  } @else {
+    <app-session-content [session]="sessionData" (onFinishSession)="finishSession()"/>
+  }
+</ng-content>

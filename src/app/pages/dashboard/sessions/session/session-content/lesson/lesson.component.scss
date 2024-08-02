@@ -1,0 +1,13 @@
+.lesson {
+  &-actions {
+    display: flex;
+  
+    .continue-btn {
+      flex: 1;
+    }
+  }
+
+  &-submitting-loading {
+    margin: 12px 0;
+  }
+}

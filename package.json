@@ -23,7 +23,9 @@
     "markdown-it": "^14.1.0",
     "recordrtc": "^5.6.2",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.7.5",
     "tslib": "^2.3.0",
+    "uuid": "^10.0.0",
     "wavesurfer.js": "^7.8.2",
     "zone.js": "~0.14.3"
   },
@@ -34,6 +36,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/markdown-it": "^14.1.1",
     "@types/recordrtc": "^5.6.14",
+    "@types/uuid": "^10.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

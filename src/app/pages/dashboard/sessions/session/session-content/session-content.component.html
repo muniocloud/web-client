@@ -1,0 +1,7 @@
+<ng-container *ngIf="currentLesson">
+  <app-session-progress [lessons]="session.lessonsItens" [currentLessonId]="currentLesson.id" [sessionId]="session.id"
+    [isRecording]="false" (onClickLesson)="changeLesson($event)" />
+
+  <app-lesson [lesson]="currentLesson" *ngIf="currentLesson" [sessionId]="session.id" (onNextLesson)="handleNextLesson($event)"/>
+
+</ng-container>

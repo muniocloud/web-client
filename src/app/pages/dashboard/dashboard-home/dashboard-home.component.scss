@@ -1,0 +1,19 @@
+:host {
+  width: calc(100% - 24px);
+  max-width: 648px;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.is-loading {
+  margin: 0 auto;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

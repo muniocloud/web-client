@@ -1,0 +1,4 @@
+<button mat-icon-button aria-label="play audio" (click)="toggleAudio()">
+  <mat-icon>{{ isPlayingAudio() ? 'pause' : 'play_arrow'}}</mat-icon>
+</button>
+<div [id]="audioViewerId" class="audio-viewer"></div>
