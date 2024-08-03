@@ -232,7 +232,7 @@ export class ConversationComponent {
 
     return {
       name: 'munio',
-      avatarUrl: './munio.png',
+      avatarUrl: '/munio.png',
     }
   }
 
