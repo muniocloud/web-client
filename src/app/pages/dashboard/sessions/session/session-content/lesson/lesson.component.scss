@@ -1,6 +1,7 @@
 .lesson {
   &-actions {
     display: flex;
+    gap: 8px;
   
     .continue-btn {
       flex: 1;

@@ -2,6 +2,10 @@
 @use '@angular/material' as mat;
 
 @mixin color($theme) {
+  .application-example {
+    border-color: mat.get-theme-color($theme, on-secondary);
+  }
+
   .primary-heading {
     color: mat.get-theme-color($theme, on-background);
   }
