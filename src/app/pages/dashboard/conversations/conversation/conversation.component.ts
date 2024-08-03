@@ -113,7 +113,7 @@ export class ConversationComponent {
     this.socket?.on('status', (code: number, [data]: [ConversationFeedback]) => {
       switch (code) {
         case WS_CONVERSATION_STATUS.STARTED:
-          this.isProcessingMessage = true;
+          this.isProcessingMessage = false;
           break;
         case WS_CONVERSATION_STATUS.FINISHED:
           this.requestedUserMessage.next(null);
