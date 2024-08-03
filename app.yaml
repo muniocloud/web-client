@@ -28,6 +28,11 @@ handlers:
   upload: dist/web-client/browser/(.*\.js)
   secure: always
 
+- url: /(.*\.png)
+  static_files: dist/web-client/browser/\1
+  upload: dist/web-client/browser/(.*\.png)
+  secure: always
+
 - url: /(.*\.txt)
   static_files: dist/web-client/browser/\1
   upload: dist/web-client/browser/(.*\.txt)
