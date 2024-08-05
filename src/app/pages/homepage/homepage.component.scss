@@ -8,9 +8,15 @@
   gap: 24px;
 }
 
+.application-showcase-container {
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
 .application-example {
   border-radius: 20px;
   border-width: 10px;
   border-style: solid;
-  max-width: 800px;
+  width: 90%;
 }
