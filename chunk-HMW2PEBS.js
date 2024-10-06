@@ -1,0 +1,1 @@
+import{ka as i}from"./chunk-YS66BBCY.js";var s=(()=>{let t=class t{transform(e){return e.split(" ")[0]}};t.\u0275fac=function(n){return new(n||t)},t.\u0275pipe=i({name:"firstName",type:t,pure:!0,standalone:!0});let r=t;return r})();export{s as a};
