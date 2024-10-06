@@ -70,7 +70,6 @@
           "builder": "angular-cli-ghpages:deploy",
           "options": {
             "repo": "https://github.com/muniocloud/web-client.git",
-            "baseHref": "https://muniocloud.github.io/web-client/",
             "branch": "gh-pages",
             "dir": "dist/web-client/browser"
           }
