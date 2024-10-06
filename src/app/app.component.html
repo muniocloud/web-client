@@ -1,2 +1,6 @@
-<app-navbar/>
-<router-outlet />
+@if (isOnline) {
+  <app-navbar/>
+  <router-outlet />
+} @else {
+  <app-offline />
+}
